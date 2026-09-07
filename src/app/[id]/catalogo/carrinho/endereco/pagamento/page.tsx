@@ -38,7 +38,7 @@ const Page = () => {
                     // ESCUTA MENSAGEM DO SERVIDOR
                     connection.on('ReceiveMessage', (message: string) => {
                         console.log('📩 Servidor - ', message);
-                        alert(JSON.stringify(message));
+                        console.log(JSON.stringify(message));
                     });
                 })
                 .catch((err) => {

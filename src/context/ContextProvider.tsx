@@ -11,6 +11,7 @@ type Carrinho = {
     contatoCliente: string | null;
     enderecoCliente: string | null;
     produtos: Produto[] | null;
+    loja: string | null;
     valorTotal: number;
 
 };
@@ -50,6 +51,7 @@ export const ContextProvider = ({ children, dados, produtos }:
             contatoCliente: contato,
             enderecoCliente: endereco,
             produtos: produtosCarrinho,
+            loja: dados.user,
             valorTotal: produtosCarrinho.reduce((acc, produto) => {
                 return produto.subtotal + acc;
             }, 0),
