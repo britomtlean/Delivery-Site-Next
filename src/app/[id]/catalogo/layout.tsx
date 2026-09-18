@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 import "../../globals.css";
 import { cn } from "@/lib/utils";
 import { Button } from "@base-ui/react";
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, Menu } from "lucide-react";
 import prisma from "@/app/_db/prisma";
 import { Usuarios } from "@prisma/client";
 import { ProdutoDB } from "@/Types/Types";
@@ -53,8 +53,10 @@ export default async function RootLayout({ children, params }: { children: React
                     className="w-full h-[10vh] bg-blue-800 relative
                         flex justify-around lg:justify-center items-center lg:items-center"
                 >
-                    <h1 className="text-white text-xl font-sans font-bold lg:hidden">Faça o seu login</h1>
-                    <Button className={`${'lg:hidden'}`}>Login</Button>
+                    <Link href={'/'} className="text-white text-xl font-sans font-bold lg:hidden">Faça o seu login</Link>
+                    <Button className={`${'lg:hidden'} text-white`}>
+                        <Menu className="size-10 text-4xl font-black" />
+                    </Button>
 
                     <nav
                         className="w-3/4 h-1/2 hidden

@@ -77,11 +77,11 @@ const Carrosel = ({ produtos }: { produtos: ProdutoDB[] | null }) => {
 
     return (
         <div
-            className="
-                w-full h-[500px]
+            className=" h-[100px]
                 flex justify-center items-center
                 overflow-hidden rounded-lg
                 md:min-h-[300px]
+                lg:w-full lg:h-[500px]
             "
         >
             <button

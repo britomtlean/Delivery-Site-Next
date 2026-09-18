@@ -54,13 +54,14 @@ const Page = () => {
             Carrinho vazio <br></br> <br></br> <strong className="p-4 text-6xl">{'=('}</strong>{' '}
         </h1>
     ) : (
-        <div className="h-full w-full p-5 flex flex-col gap-10 ">
+        <div className="h-full w-full p-5 flex flex-col gap-10
+        lg:w-4/5 lg:mx-auto">
             {/* Cabeçalho */}
-            <div className="flex justify-center relative">
+            <div className="flex flex-col justify-center relative gap-2">
                 <Link
                     href={`../carrinho`}
                     className="
-                        absolute left-20
+                        lg:absolute left-20
                         flex items-center gap-2
                         bg-slate-300
                         px-5 py-3
@@ -77,11 +78,13 @@ const Page = () => {
             </div>
 
             {/* Conteúdo */}
-            <div className="flex gap-5 flex-1">
+            <div className="flex flex-col items-center lg:items-start gap-5 flex-1
+            lg:flex-row">
                 {/* Formulário */}
                 <section
                     className="
-                        w-2/3
+                        lg:w-2/3
+                        w-full
                         bg-slate-300
                         border
                         border-slate-400
@@ -91,7 +94,7 @@ const Page = () => {
                 >
                     <form className="flex flex-col gap-5">
                         {/* CEP */}
-                        <div className="grid grid-cols-4 gap-4">
+                        <div className="flex flex-col lg:grid grid-cols-4 gap-4">
                             <div>
                                 <label className="font-semibold text-black">Nome</label>
                                 <input
@@ -277,7 +280,8 @@ const Page = () => {
                 {/* Painel lateral */}
                 <aside
                     className="
-                        w-1/3
+                        lg:w-1/3
+                        w-full
                         bg-slate-300
                         border
                         border-slate-400
@@ -309,7 +313,8 @@ const Page = () => {
                     }}
                     className="
                     flex justify-center
-                        w-3/5
+                        lg:w-3/5
+                        w-full
                         py-5
                         rounded-lg
                         bg-red-600

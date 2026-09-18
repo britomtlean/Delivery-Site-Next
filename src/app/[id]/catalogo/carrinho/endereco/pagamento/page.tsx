@@ -88,11 +88,12 @@ const Page = () => {
     ) : (
         <div className="h-full w-full p-5 flex flex-col gap-10 ">
             {/* Cabeçalho */}
-            <div className="relative flex justify-center">
+            <div className="relative flex flex-col justify-center gap-5
+                            lg:flex-row">
                 <Link
                     href={'../endereco'}
                     className="
-                        absolute left-20
+                        lg:absolute left-20
                         flex items-center gap-2
                         bg-slate-300
                         px-5 py-3
@@ -109,11 +110,15 @@ const Page = () => {
             </div>
 
             {/* Conteúdo */}
-            <div className="flex gap-5 flex-1">
+            <div
+                className="flex gap-5 flex-1 flex-col
+            lg:flex-row"
+            >
                 {/* Métodos */}
                 <section
                     className="
-                        w-1/3
+                        lg:w-1/3
+                        w-full
                         bg-slate-300
                         rounded-lg
                         border
@@ -195,7 +200,8 @@ const Page = () => {
                 {/* Resumo */}
                 <aside
                     className="
-                        w-1/3
+                        lg:w-1/3
+                        w-full
                         bg-slate-300
                         rounded-lg
                         border
@@ -305,7 +311,9 @@ const Page = () => {
 
                 <div
                     className="
-                        w-1/3 flex-1 space-y-4
+                        lg:w-1/3
+                        w-full
+                        flex-1 space-y-4
                         bg-slate-300
                         rounded-lg
                         border
@@ -363,7 +371,8 @@ const Page = () => {
             </div>
 
             <div
-                className="h-full w-1/2  bg-slate-300 rounded-lg border border-slate-400 p-8
+                className="h-full lg:w-1/2
+            w-full  bg-slate-300 rounded-lg border border-slate-400 p-8
             flex flex-col items-start gap-4"
             >
                 <h2 className="text-3xl font-bold text-black">Produtos</h2>

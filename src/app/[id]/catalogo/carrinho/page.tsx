@@ -15,21 +15,22 @@ const Page = () => {
           className="h-[full] w-[full] p-5 overflow-hidden text-white rounded-lg
             flex flex-col gap-10"
       >
-          <div className="flex justify-center">
-              <Link className="text-black absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2" href="../catalogo">
+          <div className="flex justify-center flex-col lg:flex-row gap-8 lg:gap-1">
+              <Link className="text-black h-[60px] lg:absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2" href="../catalogo">
                   <ArrowBigLeft className="text-slate-600" /> <strong>Retornar</strong>
               </Link>
-              <h2 className="text-3xl font-bold mb-4 text-center text-black">Reveja os detalhes do seu pedido</h2>
+              <h2 className="text-3xl font-bold lg:mb-4 text-center text-black">Reveja os detalhes do seu pedido</h2>
           </div>
 
           <div
               className="min-h-[50%]
-            flex justify-center items-start gap-2 border-black"
+            flex flex-col justify-center items-center lg:items-start gap-2 border-black
+            lg:flex-row"
           >
               {produtosCarrinho.length === 0 ? (
                   <></>
               ) : (
-                  <div className="w-1/3 h-full p-4 border border-y-slate-400">
+                  <div className="lg:w-1/3 h-full p-4 border border-y-slate-400">
                       <div className="flex flex-col gap-3 overflow-y-auto flex-1 max-h-96">
                           {produtosCarrinho.map((produto) => (
                               <div
@@ -82,7 +83,7 @@ const Page = () => {
               )}
 
               <div
-                  className="w-1/3 h-full min-h-96 bg-slate-300 p-4 border border-slate-400 rounded-lg pl-20 pr-20
+                  className="lg:w-1/3 h-full min-h-96 bg-slate-300 p-4 border border-slate-400 rounded-lg pl-20 pr-20
               flex flex-col justify-center gap-4"
               >
                   <ShoppingCart className="size-full text-slate-500" />
@@ -93,7 +94,8 @@ const Page = () => {
               <Link
                   className="
                                 inline-flex items-center justify-center gap-2
-                                w-3/5
+                                lg:w-3/5
+                                w-full
                                 px-5 py-5
                                 rounded-lg
                                 bg-red-600

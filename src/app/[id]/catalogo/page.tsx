@@ -96,7 +96,7 @@ const Page = () => {
                 {<Carrinho id={dadosEstabelecimento.id} />}
             </div>
 
-            <div className="w-3/4 border-b border-slate-300 py-5">
+            <div className="lg:w-3/4 border-b border-slate-300 lg:py-5">
                 <h2 className="font-medium text-slate-800 px-30 w-full text-center font-sans text-xl pb-8">
                     {dadosEstabelecimento.Descricao}
                 </h2>
@@ -105,7 +105,7 @@ const Page = () => {
             {produtosEstabelecimento?.length == 0 ? (
                 <h1 className='text-3xl'>Não há produtos cadastrados</h1>
             ) : (
-                <div className="w-full lg:w-[95%] 2xl:w-[80%] flex flex-col gap-10 py-8 border-b border-slate-300">
+                <div className="w-[95%] 2xl:w-[80%] flex flex-col gap-10 py-8 border-b border-slate-300">
                     <h2 className="font-black px-30 w-full text-center font-sans text-4xl px-2">Destaques</h2>
                     <Carrosel produtos={produtosEstabelecimento} />
                 </div>
