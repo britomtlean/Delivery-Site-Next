@@ -14,31 +14,33 @@ const Produtos = ({ produtos }: { produtos: any }) => {
 
     return (
         <>
-            <div className="w-[95%] h-full flex flex-col lg:w-[95%] mb-20 2xl:w-[80vw] gap-5 md:pt-8">
-                <h1 className="font-black font-sans text-4xl w-full text-center lg:text-center">
-                    {categoria ? categoria : 'Categorias'}
-                </h1>
-                <div className="flex lg:flex-row lg:justify-between flex-col lg:gap-0 gap-4 py-4">
-                    <select
-                        defaultValue={''}
-                        value={categoria || ''}
-                        onChange={(e) => {
-                            setCategoria(e.target.value == '' ? null : e.target.value);
-                        }}
-                        className=" w-full lg:w-[40vw] 2xl:w-2/6 p-4 rounded-md bg-gray-300"
-                    >
-                        <option value={''}>{!categoria ? 'Lista de categorias' : 'Voltar ao início'}</option>
-                        <option value={'Mais Vendidos'}>Mais Vendidos</option>
-                        <option value={'Outros'}>Outros</option>
-                    </select>
-
-                </div>
+            <div className="w-[95%] 2xl:w-[80vw] h-full flex flex-col gap-5 mb-20">
+                {
+                    //SELECT
+                    <div className="flex lg:justify-around flex-col lg:items-center lg:gap-5 gap-4 lg:relative">
+                        <h1 className="font-black text-gray-700 font-sans text-xl lg:text-2xl  text-center">
+                            {categoria ? categoria : 'Selecione uma categoria'}
+                        </h1>
+                        <select
+                            defaultValue={''}
+                            value={categoria || ''}
+                            onChange={(e) => {
+                                setCategoria(e.target.value == '' ? null : e.target.value);
+                            }}
+                            className=" w-full lg:w-[30vw] 2xl:w-2/6 p-4 rounded-md bg-gray-300 "
+                        >
+                            <option value={''}>{!categoria ? 'Lista de categorias' : 'Voltar ao início'}</option>
+                            <option value={'Mais Vendidos'}>Mais Vendidos</option>
+                            <option value={'Outros'}>Outros</option>
+                        </select>
+                    </div>
+                }
 
                 <div className="flex flex-wrap flex-col w-full h-full gap-4">
                     {categoria != null ? (
                         <div
                             className="w-full h-full
-                            grid lg:grid-cols-4 gap-4"
+                            grid grid-cols-1 lg:grid-cols-4 gap-4"
                         >
                             {Array.isArray(produtoFiltrado) &&
                                 produtoFiltrado.map((produto: Produtos) => (
@@ -88,12 +90,9 @@ const Produtos = ({ produtos }: { produtos: any }) => {
                                 ))}
                         </div>
                     ) : (
-                        <div
-                            className="w-full h-full
-                                grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-2"
-                        >
+                        <div className="w-full h-full grid grid-cols-2 lg:grid-cols-3 gap-2">
                             <button
-                                className=" flex flex-col items-center justify-center p-20 border border-slate-300 rounded-lg"
+                                className=" flex flex-col items-center justify-center lg:p-20 border border-slate-300 rounded-lg py-[5%]"
                                 onClick={() => {
                                     setCategoria('Mais Vendidos');
                                 }}
@@ -103,14 +102,14 @@ const Produtos = ({ produtos }: { produtos: any }) => {
                                     alt="Logo"
                                     width={400}
                                     height={200}
-                                    className="rounded-lg animate-bounce transition-all ease-in-out delay-5000"
+                                    className="rounded-lg lg:animate-bounce transition-all ease-in-out delay-5000"
                                 />
-                                <strong className="text-3xl">Mais Vendidos</strong>
+                                <strong className="lg:text-3xl py-2">Mais Vendidos</strong>
                             </button>
                             <button
-                                className="flex flex-col items-center justify-center p-20 border border-slate-300 rounded-lg"
+                                className=" flex flex-col items-center justify-center lg:p-20 border border-slate-300 rounded-lg py-[5%]"
                                 onClick={() => {
-                                    setCategoria('Outros');
+                                    setCategoria('Mais Vendidos');
                                 }}
                             >
                                 <Image
@@ -118,9 +117,24 @@ const Produtos = ({ produtos }: { produtos: any }) => {
                                     alt="Logo"
                                     width={400}
                                     height={200}
-                                    className="rounded-lg animate-bounce transition-all ease-in-out delay-5000"
+                                    className="rounded-lg lg:animate-bounce transition-all ease-in-out delay-5000"
                                 />
-                                <strong className="text-3xl">Outros</strong>
+                                <strong className="lg:text-3xl py-2">Mais Vendidos</strong>
+                            </button>
+                            <button
+                                className=" flex flex-col items-center justify-center lg:p-20 border border-slate-300 rounded-lg py-[5%]"
+                                onClick={() => {
+                                    setCategoria('Mais Vendidos');
+                                }}
+                            >
+                                <Image
+                                    src="/MaisVendidos.png"
+                                    alt="Logo"
+                                    width={400}
+                                    height={200}
+                                    className="rounded-lg lg:animate-bounce transition-all ease-in-out delay-5000"
+                                />
+                                <strong className="lg:text-3xl py-2">Mais Vendidos</strong>
                             </button>
                         </div>
                     )}

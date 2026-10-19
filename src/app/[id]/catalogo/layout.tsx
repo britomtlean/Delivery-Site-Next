@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import ContextProvider from "@/context/ContextProvider";
+import type { Metadata } from 'next';
+import ContextProvider from '@/context/ContextProvider';
 import { Inter } from 'next/font/google';
-import "../../globals.css";
-import { cn } from "@/lib/utils";
-import { Button } from "@base-ui/react";
-import { HomeIcon, Menu } from "lucide-react";
-import prisma from "@/app/_db/prisma";
-import { Usuarios } from "@prisma/client";
-import { ProdutoDB } from "@/Types/Types";
+import '../../globals.css';
+import { cn } from '@/lib/utils';
+import { Button } from '@base-ui/react';
+import { HomeIcon, Menu } from 'lucide-react';
+import prisma from '@/app/_db/prisma';
+import { Usuarios } from '@prisma/client';
+import { ProdutoDB } from '@/Types/Types';
 import Link from 'next/link';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'Colônia - Menu',
@@ -19,7 +19,6 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: { id: string } }) {
-
     const { id } = await params;
     const login: Usuarios | null = await prisma.usuarios.findUnique({ where: { user: id } });
     const produtos: ProdutoDB[] | null = await prisma.produtos.findMany({
@@ -38,10 +37,10 @@ export default async function RootLayout({ children, params }: { children: React
         },
     });
 
-    if (!login){
+    if (!login) {
         return (
             <div className="h-screen w-full flex justify-center items-center font-mono font-bold text-4xl bg-white">
-                Pagina não encontrada {"=("}
+                Pagina não encontrada {'=('}
             </div>
         );
     }
@@ -50,13 +49,23 @@ export default async function RootLayout({ children, params }: { children: React
         <html lang="pt-br" className={cn('font-sans')}>
             <body className={inter.className}>
                 <header
-                    className="w-full h-[10vh] bg-blue-800 relative
-                        flex justify-around lg:justify-center items-center lg:items-center"
+                    className="w-full h-[25vh] lg:h-[10vh] relative lg:bg-blue-800
+                        flex flex-col lg:flex-row justify-around lg:justify-center items-center lg:items-center"
                 >
-                    <Link href={'/'} className="text-white text-xl font-sans font-bold lg:hidden">Faça o seu login</Link>
-                    <Button className={`${'lg:hidden'} text-white`}>
-                        <Menu className="size-10 text-4xl font-black" />
-                    </Button>
+                    <img
+                        className="bg-white rounded-[100%] lg:hidden absolute border top-5 w-[30%] z-100"
+                        src={login.Logo}
+                    />
+
+                    <div className="w-full h-[60%] lg:hidden bg-blue-800"></div>
+
+                    <div className="w-full h-full lg:hidden bg-white border-b-2 border-blue-800 rounded-b-2xl">
+                        <div className="h-full w-full relative">
+                            <h1 className="absolute bottom-10 text-center w-full font-bold text-gray-700">
+                                {login.Descricao}
+                            </h1>
+                        </div>
+                    </div>
 
                     <nav
                         className="w-3/4 h-1/2 hidden

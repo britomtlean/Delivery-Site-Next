@@ -19,7 +19,7 @@ const Page = () => {
               <Link className="text-black h-[60px] lg:absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2" href="../catalogo">
                   <ArrowBigLeft className="text-slate-600" /> <strong>Retornar</strong>
               </Link>
-              <h2 className="text-3xl font-bold lg:mb-4 text-center text-black">Reveja os detalhes do seu pedido</h2>
+              <h2 className="lg:text-3xl font-bold lg:mb-4 text-center text-gray-700">Reveja os detalhes do seu pedido</h2>
           </div>
 
           <div
@@ -30,8 +30,8 @@ const Page = () => {
               {produtosCarrinho.length === 0 ? (
                   <></>
               ) : (
-                  <div className="lg:w-1/3 h-full p-4 border border-y-slate-400">
-                      <div className="flex flex-col gap-3 overflow-y-auto flex-1 max-h-96">
+                  <div className="w-full lg:w-1/3 h-full p-4 border border-y-slate-400">
+                      <div className="flex flex-col gap-3 overflow-y-scroll lg:overflow-y-auto flex-1 max-h-96">
                           {produtosCarrinho.map((produto) => (
                               <div
                                   key={produto.produtoId}
@@ -84,7 +84,7 @@ const Page = () => {
 
               <div
                   className="lg:w-1/3 h-full min-h-96 bg-slate-300 p-4 border border-slate-400 rounded-lg pl-20 pr-20
-              flex flex-col justify-center gap-4"
+              hidden lg:flex flex-col justify-center gap-4"
               >
                   <ShoppingCart className="size-full text-slate-500" />
               </div>

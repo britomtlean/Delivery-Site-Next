@@ -54,10 +54,10 @@ const Page = () => {
             Carrinho vazio <br></br> <br></br> <strong className="p-4 text-6xl">{'=('}</strong>{' '}
         </h1>
     ) : (
-        <div className="h-full w-full p-5 flex flex-col gap-10
+        <div className="h-full w-full p-5 flex flex-col gap-5 lg:gap-10
         lg:w-4/5 lg:mx-auto">
             {/* Cabeçalho */}
-            <div className="flex flex-col justify-center relative gap-2">
+            <div className="flex flex-col justify-center relative gap-5 lg:gap-2">
                 <Link
                     href={`../carrinho`}
                     className="
@@ -74,7 +74,7 @@ const Page = () => {
                     <strong>Retornar</strong>
                 </Link>
 
-                <h2 className="text-3xl font-bold text-black">Endereço de Entrega</h2>
+                <h2 className="lg:text-3xl font-bold text-gray-700 text-center">Endereço de Entrega</h2>
             </div>
 
             {/* Conteúdo */}
@@ -89,7 +89,7 @@ const Page = () => {
                         border
                         border-slate-400
                         rounded-lg
-                        p-8
+                        p-4 lg:p-8
                     "
                 >
                     <form className="flex flex-col gap-5">

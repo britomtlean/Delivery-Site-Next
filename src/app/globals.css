@@ -15,6 +15,6 @@
   */
 
 body {
-@apply bg-[#020617];
+@apply bg-white lg:bg-[#020617];
 }
 

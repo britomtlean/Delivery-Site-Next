@@ -77,62 +77,51 @@ const Carrosel = ({ produtos }: { produtos: ProdutoDB[] | null }) => {
 
     return (
         <div
-            className=" h-[100px]
+            className="h-[300px] w-full relative
                 flex justify-center items-center
                 overflow-hidden rounded-lg
-                md:min-h-[300px]
-                lg:w-full lg:h-[500px]
             "
         >
             <button
-                className="
-                    md:w-[10%] h-full
-                    border-l-0!
-                    rounded-r-[0]!
-                    bg-slate-900
-                    z-50
-                "
+                className="z-50 md:w-14 h-14 bg-black/80 rounded-[100%] flex justify-center items-center absolute left-[2%]"
                 onClick={nextProduct}
             >
-                <FaAngleLeft className="text-white text-4xl text-center w-full" />
+                <FaAngleLeft className="text-white text-4xl w-full" />
             </button>
 
-            <div
-                className="flex w-[90%] h-full overflow-hidden border border-slate-500/40 items-center justify-around"
-                ref={oneRef}
-            >
+            <div className="flex w-full h-full overflow-hidden items-center justify-around" ref={oneRef}>
                 <AnimatePresence mode="popLayout">
                     <div className="w-[25%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">
                         <img src={item[0].imagem} className="w-[200px] h-[300px] object-contain " />
 
                         {/* Overlay escuro */}
-                        <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+                        <div className="absolute inset-0 bg-black/50 rounded-3xl"></div>
                     </div>
 
-                    <div className="w-[40%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center">
-                        <img src={item[1].imagem} className="w-full h-[450px] object-contain" />
+                    <div className="w-[30%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center relative">
+                        <img src={item[1].imagem} className="w-[200px] h-[300px] object-contain" />
+                        <button
+                            className="z-50 w-3/4 px-20 py-3 bg-blue-900/95 rounded-lg absolute bottom-[8%] left-[50%] translate-x-[-50%]"
+                            onClick={returnProduct}
+                        >
+                            <h1 className='text-white font-bold'>Detalhes</h1>
+                        </button>
                     </div>
 
                     <div className="w-[25%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">
                         <img src={item[2].imagem} className="w-[200px] h-[300px] object-contain" />
 
                         {/* Overlay escuro */}
-                        <div className="absolute inset-0 bg-black/30 rounded-3xl"></div>
+                        <div className="absolute inset-0 bg-black/50 rounded-3xl"></div>
                     </div>
                 </AnimatePresence>
             </div>
 
             <button
-                className="
-                    md:w-[10%] h-full
-                    bg-slate-900
-                    border-r-0!
-                    rounded-l-[0]!
-                    z-50
-                "
+                className="z-50 md:w-14 h-14 bg-black/80 rounded-[100%] flex justify-center items-center absolute right-[2%]"
                 onClick={returnProduct}
             >
-                <FaAngleRight className="text-white text-4xl text-center w-full" />
+                <FaAngleRight className="text-white text-4xl w-full" />
             </button>
         </div>
     );

@@ -6,6 +6,16 @@ import Link from 'next/link';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { useContext, useEffect, useState } from 'react';
 
+
+type Produto = {
+    produtoId: string;
+    nome: string;
+    quantidade: number;
+    valorUnitario: number;
+    subtotal: number;
+};
+
+
 const Page = () => {
     const { carrinho } = useContext(Context)!;
 
@@ -66,6 +76,66 @@ const Page = () => {
         window.location.href = data.url;
     }
 
+        const whatsappMessage = () => {
+            //GERA MENSAGEM
+            const pedido: Record<string, any> | null = {
+                produtos: [
+                    {
+                        produtoId: '6a10d5b7ae6f124854579c0e',
+                        nome: 'Top Jet',
+                        quantidade: 1,
+                        valorUnitario: 10,
+                        subtotal: 10,
+                    },
+                ],
+                valorTotal: carrinho?.valorTotal,
+                nomeCliente: carrinho?.nomeCliente,
+                contatoCliente: carrinho?.contatoCliente,
+                enderecoCliente: carrinho?.enderecoCliente,
+            };
+
+            const numeroPedido = Date.now().toString().slice(-8);
+
+            const resumoProdutos = pedido.produtos
+                .map((p: any) => `📌 ${p.quantidade} x ${p.nome} - R$ ${p.subtotal.toFixed(2).replace('.', ',')}`)
+                .join('\n');
+
+            const mensagem = `SEU PEDIDO: LELECO HAMBURGUERIA PIRAQUÊ
+
+                        Acompanhe abaixo o pedido
+
+                        Pedido nº: #${numeroPedido}
+                        Realizado em: ${new Date().toLocaleString('pt-BR')}
+
+                        -----------------------------
+                        🍽️ RESUMO DO PEDIDO
+
+                        ${resumoProdutos}
+
+                        -----------------------------
+                        💳 PAGAMENTO
+
+                        ▪️ Taxa de Entrega: R$ 5,00
+                        ▪️ Valor Total do Pedido: R$ ${pedido.valorTotal.toFixed(2).replace('.', ',')}
+
+                        -----------------------------
+                        🏠 ENDEREÇO DE ENTREGA
+
+                        ${pedido.enderecoCliente}
+
+                        ⏲️ Previsão de Entrega: 45 a 80 minutos
+
+                        -----------------------------
+                        🤩 ${pedido.nomeCliente}
+                        📞 ${pedido.contatoCliente}
+                        💳 Crédito
+
+                        Clique no link para acompanhar seu pedido:
+                        https://seusite.com/pedido/${numeroPedido}`;
+
+            window.open(`https://wa.me/5521970076196?text=${encodeURIComponent(mensagem)}`, '_blank');
+        };
+
 
     async function pagamentoEntrega(pedido: any) {
         if (!connection) return;
@@ -74,6 +144,7 @@ const Page = () => {
             await connection.invoke('CreatePedido', pedido);
 
             console.log('✅ Pedido enviado: ', pedido);
+            whatsappMessage();
         } catch (err) {
             console.error('Erro ao enviar:', err);
         }
@@ -106,7 +177,7 @@ const Page = () => {
                     <strong>Retornar</strong>
                 </Link>
 
-                <h2 className="text-3xl font-bold text-black">Forma de Pagamento</h2>
+                <h2 className="lg:text-3xl font-bold text-gray-7700">Forma de Pagamento</h2>
             </div>
 
             {/* Conteúdo */}
