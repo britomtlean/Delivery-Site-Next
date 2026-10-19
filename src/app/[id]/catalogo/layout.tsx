@@ -9,6 +9,7 @@ import prisma from '@/app/_db/prisma';
 import { Usuarios } from '@prisma/client';
 import { ProdutoDB } from '@/Types/Types';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -49,21 +50,40 @@ export default async function RootLayout({ children, params }: { children: React
         <html lang="pt-br" className={cn('font-sans')}>
             <body className={inter.className}>
                 <header
-                    className="w-full h-[25vh] lg:h-[10vh] relative lg:bg-blue-800
+                    className="w-full h-[25vh] lg:h-[10vh] relative
                         flex flex-col lg:flex-row justify-around lg:justify-center items-center lg:items-center"
+                    style={{ background: login?.Background || '#1e293b' }}
                 >
-                    <img
+                    <Image
+                        src={
+                            login?.Logo ||
+                            'https://res.cloudinary.com/dolfatptk/image/upload/v1788721062/images_saqhkw.jpg'
+                        }
+                        alt="Logo"
+                        width={50}
+                        height={50}
                         className="bg-white rounded-[100%] lg:hidden absolute border top-5 w-[30%] z-100"
-                        src={login.Logo}
                     />
 
-                    <div className="w-full h-[60%] lg:hidden bg-blue-800"></div>
+                    <div
+                        className="w-full h-[60%] lg:hidden"
+                        style={{ background: login?.Background || '#1e293b' }}
+                    ></div>
 
-                    <div className="w-full h-full lg:hidden bg-white border-b-2 border-blue-800 rounded-b-2xl">
+                    <div
+                        className="w-full h-full lg:hidden bg-white rounded-b-3xl"
+                        style={{ border: '1px solid ' + login?.Background || '#1e293b' }}
+                    >
                         <div className="h-full w-full relative">
+                            {
+                                // ADICIONAR LIMITE DE CARACTERES
+                            }
                             <h1 className="absolute bottom-10 text-center w-full font-bold text-gray-700">
                                 {login.Descricao}
                             </h1>
+                            <h2 className="absolute bottom-4 text-center text-xs w-full font-bold text-gray-700">
+                                {login.Horario}
+                            </h2>
                         </div>
                     </div>
 
@@ -90,17 +110,17 @@ export default async function RootLayout({ children, params }: { children: React
                     <div className="lg:min-h-[100vh] bg-slate-100">{children}</div>
                 </ContextProvider>
 
-                <footer className="bg-blue-900 text-white">
+                <footer className="text-white" style={{ background: login?.Background || '#1e293b' }}>
                     <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
                         {/* Empresa */}
                         <section>
-                            <h2 className="text-lg font-bold mb-4">{login.Nome}</h2>
+                            <h2 className="text-lg text-center font-bold mb-4">{login.Nome}</h2>
 
-                            <p className="text-slate-300 text-sm leading-7">{login.Descricao}</p>
+                            <p className="text-slate-300 text-sm text-center leading-7">{login.Descricao}</p>
                         </section>
 
                         {/* Contato */}
-                        <section>
+                        <section className="mx-auto">
                             <h2 className="text-lg font-semibold mb-4">Contato</h2>
 
                             <ul className="space-y-3 text-slate-300 text-sm">
@@ -124,7 +144,7 @@ export default async function RootLayout({ children, params }: { children: React
                         </section>
 
                         {/* Navegação */}
-                        <section>
+                        <section className="mx-auto">
                             <h2 className="text-lg font-semibold mb-4">Navegação</h2>
 
                             <nav className="flex flex-col gap-3 text-slate-300 text-sm">
@@ -151,8 +171,8 @@ export default async function RootLayout({ children, params }: { children: React
                         </section>
                     </div>
 
-                    <div className="border-t border-blue-800">
-                        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-300">
+                    <div className="border-t border-white">
+                        <div className="max-w-7xl text-center mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-300">
                             <p>
                                 © {new Date().getFullYear()} Colônia Material de Construção. Todos os direitos
                                 reservados.

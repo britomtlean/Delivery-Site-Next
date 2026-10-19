@@ -20,7 +20,7 @@ const Page = () => {
 
     return (
         <div
-            className="w-full min-h-screen gap-10 lg:gap-4
+            className="w-full gap-10 lg:gap-4
             flex flex-col justify-start items-center"
         >
             {
@@ -45,7 +45,7 @@ const Page = () => {
                             />
 
                             <div className="flex flex-col justify-start items-start lg:gap-4">
-                                <h1 className="lg:text-3xl font-extrabold font-sans text-center py-5">
+                                <h1 className="lg:text-3xl font-extrabold font-sans text-center py-5 lg:py-0">
                                     {dadosEstabelecimento.Nome}
                                 </h1>
 
@@ -68,9 +68,6 @@ const Page = () => {
                                         </a>
                                     </div>
                                 </div>
-                                <h2 className="font-medium text-slate-800 px-30 w-full text-center font-sans text-xl pb-8">
-                                    {dadosEstabelecimento.Descricao}
-                                </h2>
                             </div>
 
                             <div>
@@ -88,9 +85,10 @@ const Page = () => {
                             />
 
                             <a
-                                className="px-5 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                                className="px-5 py-3 rounded-lg text-white transition"
                                 target="_blank"
                                 href={`${pathname}/search?produto=${busca}`}
+                                style={{ background: dadosEstabelecimento?.Background || '#1e293b' }}
                             >
                                 Pesquisar
                             </a>

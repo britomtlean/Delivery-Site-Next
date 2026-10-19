@@ -101,10 +101,10 @@ const Carrosel = ({ produtos }: { produtos: ProdutoDB[] | null }) => {
                     <div className="w-[30%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center relative">
                         <img src={item[1].imagem} className="w-[200px] h-[300px] object-contain" />
                         <button
-                            className="z-50 w-3/4 px-20 py-3 bg-blue-900/95 rounded-lg absolute bottom-[8%] left-[50%] translate-x-[-50%]"
+                            className="z-50 w-3/4 px-20 py-3 bg-[#1e293b] rounded-lg absolute bottom-[8%] left-[50%] translate-x-[-50%]"
                             onClick={returnProduct}
                         >
-                            <h1 className='text-white font-bold'>Detalhes</h1>
+                            <h1 className="text-white font-bold">Detalhes</h1>
                         </button>
                     </div>
 

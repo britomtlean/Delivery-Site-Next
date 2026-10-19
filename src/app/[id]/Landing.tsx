@@ -13,7 +13,10 @@ export default function Landing({ user }: { user: Usuarios | null }) {
 
     return (
         <main
-            className={`relative pt-[15%] md:p-0 min-h-screen flex flex-col gap-8 items-center justify-start md:justify-center overflow-hidden bg-[${user?.Background}] text-white`}
+            className={`relative px-5 pt-[15%] md:p-0 min-h-screen flex flex-col gap-8 items-center justify-start md:justify-center overflow-hidden text-white`}
+            style={{
+                background: user?.Background || '#0d171f',
+            }}
         >
             {/* BACKGROUND */}
             <motion.div

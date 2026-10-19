@@ -13,13 +13,13 @@ export default function Carrinho({ id }: { id: string }) {
     return produtosCarrinho.length === 0 ? (
         <aside
             className="hidden lg:h-[310px] w-[95%] py-5 lg:p-4 bottom-[1%] overflow-y-scroll lg:overflow-hidden
-            bg-blue-800 border border-slate-300 text-white rounded-lg
+            bg-[#1e293b] border border-slate-300 text-white rounded-lg
             lg:flex flex-col fixed
             lg:h-full lg:max-h-[320px] 2xl:max-h-[350px] lg:w-[25%] 2xl:w-1/5 lg:relative lg:pt-8 z-50"
         >
             <h2 className="text-xl font-bold mb-2 text-center">Carrinho</h2>
             <>
-                <div className="mt-4 border-t border-blue-500 py-4 flex flex-col justify-center items-center gap-4">
+                <div className="mt-4 border-t border-white py-10 flex flex-col justify-center items-center gap-4">
                     <ShoppingCart className="size-12" />
                     <div>
                         <h1 className="w-full">Itens: {produtosCarrinho.length}</h1>
@@ -42,6 +42,7 @@ export default function Carrinho({ id }: { id: string }) {
                                 focus:outline-none
                                 focus:ring-2
                                 focus:ring-blue-400
+
                                 "
                         href={`${pathname}/carrinho`}
                     >

@@ -90,7 +90,7 @@ const Produtos = ({ produtos }: { produtos: any }) => {
                                 ))}
                         </div>
                     ) : (
-                        <div className="w-full h-full grid grid-cols-2 lg:grid-cols-3 gap-2">
+                        <div className="w-full h-full grid grid-cols-2 lg:grid-cols-2 gap-2">
                             <button
                                 className=" flex flex-col items-center justify-center lg:p-20 border border-slate-300 rounded-lg py-[5%]"
                                 onClick={() => {
@@ -119,22 +119,7 @@ const Produtos = ({ produtos }: { produtos: any }) => {
                                     height={200}
                                     className="rounded-lg lg:animate-bounce transition-all ease-in-out delay-5000"
                                 />
-                                <strong className="lg:text-3xl py-2">Mais Vendidos</strong>
-                            </button>
-                            <button
-                                className=" flex flex-col items-center justify-center lg:p-20 border border-slate-300 rounded-lg py-[5%]"
-                                onClick={() => {
-                                    setCategoria('Mais Vendidos');
-                                }}
-                            >
-                                <Image
-                                    src="/MaisVendidos.png"
-                                    alt="Logo"
-                                    width={400}
-                                    height={200}
-                                    className="rounded-lg lg:animate-bounce transition-all ease-in-out delay-5000"
-                                />
-                                <strong className="lg:text-3xl py-2">Mais Vendidos</strong>
+                                <strong className="lg:text-3xl py-2">Outros</strong>
                             </button>
                         </div>
                     )}
