@@ -20,7 +20,7 @@ const Page = () => {
 
     return (
         <div
-            className="w-full gap-10 lg:gap-4
+            className="w-full gap-10 lg:gap-2
             flex flex-col justify-start items-center"
         >
             {
@@ -101,12 +101,12 @@ const Page = () => {
 
             {
                 //Carrosel
-                <div className="w-full hidden lg:flex justify-center">
+                <div className="w-full border bg-gray-300/50 py-[2vw] mb-10 hidden lg:flex justify-center">
                     {produtosEstabelecimento?.length == 0 ? (
                         <h1 className="text-3xl">Não há produtos cadastrados</h1>
                     ) : (
-                        <div className="w-[95%] 2xl:w-[80%] flex flex-col gap-10 pb-5 border-b border-slate-300">
-                            <h2 className="font-black text-gray-700 font-sans text-xl lg:text-2xl  text-center">
+                        <div className="w-[95%] 2xl:w-[80%] flex flex-col gap-2 pb-5 border-b border-slate-300">
+                            <h2 className="font-black text-gray-700 font-sans text-xl lg:text-3xl font-black text-center">
                                 Destaques
                             </h2>
                             <Carrosel produtos={produtosEstabelecimento} />

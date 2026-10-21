@@ -16,5 +16,6 @@
 
 body {
 @apply bg-[#020617];
+overflow-x: hidden;
 }
 

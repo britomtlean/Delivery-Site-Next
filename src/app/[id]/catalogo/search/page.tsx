@@ -18,7 +18,7 @@ export default function Page({searchParams}: { searchParams: { produto?: string 
 
         if(produtosSearch?.length == 0)
         {
-            return <div className="text-4xl text-black font-sans font-medium w-full h-[50vh] flex justify-center items-center">Nenhum produto relacionado</div>
+            return <div className="text-3xl text-black font-sans font-medium w-full h-[50vh] flex justify-center items-center">Nenhum produto encontrado</div>
         }
 
 

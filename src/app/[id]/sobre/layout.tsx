@@ -73,7 +73,6 @@ export default async function RootLayout({ children, params }: { children: React
 
                         <Link href={'/' + login.user + '/sobre'}>Sobre</Link>
 
-                        <Link href={'/'}>Minha conta</Link>
                     </nav>
                 </header>
 

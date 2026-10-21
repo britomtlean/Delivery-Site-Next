@@ -22,7 +22,7 @@ export default function Landing({ user }: { user: Usuarios | null }) {
             <motion.div
                 initial={{ opacity: 0, y: -100, scale: 0.95 }}
                 animate={{ opacity: 1, y: 10, scale: 1 }}
-                transition={{ duration: 1.2, ease: 'easeIn' }}
+                transition={{ duration: 1, ease: 'easeIn' }}
             >
                 <Image
                     src={
@@ -31,20 +31,23 @@ export default function Landing({ user }: { user: Usuarios | null }) {
                     alt="Logo"
                     width={200}
                     height={200}
-                    className="rounded-lg animate-pulse transition-all ease-out"
+                    className="rounded-lg transition-all ease-out"
                 />
             </motion.div>
 
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-600/20 via-purple-700/20 to-cyan-500/20 blur-3xl animate-pulse" />
-
+            {
+                /*
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-600/20 via-purple-700/20 to-cyan-500/20 blur-3xl animate-pulse" />
+                */
+            }
             {/* CONTAINER */}
             <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.6 }}
                 className="relative w-full max-w-sm p-6 rounded-2xl
-                   bg-cyan-800/10 backdrop-blur-xl
-                   border border-white/10 shadow-2xl"
+                   bg-white/10 backdrop-blur-xl
+                   border border-white/10 shadow-2xl animate-pulse"
             >
                 {/* HEADER */}
                 <div className="text-center">

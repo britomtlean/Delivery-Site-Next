@@ -14,9 +14,9 @@ import Image from 'next/image';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Colônia - Menu',
+    title: 'Delivery Guaratiba',
     description:
-        'Loja de materiais de construção em Guaratiba. Ferramentas, tintas, elétrica, hidráulica, ferragens e muito mais.',
+        'O delivey do seu bairro',
 };
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode; params: { id: string } }) {
@@ -54,15 +54,13 @@ export default async function RootLayout({ children, params }: { children: React
                         flex flex-col lg:flex-row justify-around lg:justify-center items-center lg:items-center"
                     style={{ background: login?.Background || '#1e293b' }}
                 >
-                    <Image
+                    <img
                         src={
                             login?.Logo ||
                             'https://res.cloudinary.com/dolfatptk/image/upload/v1788721062/images_saqhkw.jpg'
                         }
                         alt="Logo"
-                        width={50}
-                        height={50}
-                        className="bg-white rounded-[100%] lg:hidden absolute border top-5 w-[30%] z-100"
+                        className="bg-white rounded-[100%] lg:hidden absolute border top-5 w-[30vw] h-[30vw] max-w-[120px] max-h-[120px] z-100"
                     />
 
                     <div
@@ -75,9 +73,6 @@ export default async function RootLayout({ children, params }: { children: React
                         style={{ border: '1px solid ' + login?.Background || '#1e293b' }}
                     >
                         <div className="h-full w-full relative">
-                            {
-                                // ADICIONAR LIMITE DE CARACTERES
-                            }
                             <h1 className="absolute bottom-10 text-center w-full font-bold text-gray-700">
                                 {login.Descricao}
                             </h1>
@@ -102,7 +97,6 @@ export default async function RootLayout({ children, params }: { children: React
 
                         <Link href={'/' + login.user + '/sobre'}>Sobre</Link>
 
-                        <Link href={'/'}>Minha conta</Link>
                     </nav>
                 </header>
 
@@ -174,7 +168,7 @@ export default async function RootLayout({ children, params }: { children: React
                     <div className="border-t border-white">
                         <div className="max-w-7xl text-center mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-300">
                             <p>
-                                © {new Date().getFullYear()} Colônia Material de Construção. Todos os direitos
+                                © {new Date().getFullYear()} Brits Inc. Todos os direitos
                                 reservados.
                             </p>
 

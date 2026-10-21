@@ -91,24 +91,24 @@ const Carrosel = ({ produtos }: { produtos: ProdutoDB[] | null }) => {
 
             <div className="flex w-full h-full overflow-hidden items-center justify-around" ref={oneRef}>
                 <AnimatePresence mode="popLayout">
-                    <div className="w-[25%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">
+                    <div className="w-[30%] scale-50 rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">
                         <img src={item[0].imagem} className="w-[200px] h-[300px] object-contain " />
 
                         {/* Overlay escuro */}
                         <div className="absolute inset-0 bg-black/50 rounded-3xl"></div>
                     </div>
 
-                    <div className="w-[30%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center relative">
+                    <div className="w-[40%] scale-90 rounded-3xl border-2 bg-gradient-radial from-gray-200 to-indigo-500/30 flex justify-center items-center relative">
                         <img src={item[1].imagem} className="w-[200px] h-[300px] object-contain" />
                         <button
-                            className="z-50 w-3/4 px-20 py-3 bg-[#1e293b] rounded-lg absolute bottom-[8%] left-[50%] translate-x-[-50%]"
+                            className="z-50 w-1/2 min-w-[250px] px-20 py-3 bg-[#1e293b] rounded-lg absolute bottom-[8%] left-[50%] translate-x-[-50%]"
                             onClick={returnProduct}
                         >
                             <h1 className="text-white font-bold">Detalhes</h1>
                         </button>
                     </div>
 
-                    <div className="w-[25%] rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">
+                    <div className="w-[30%] scale-50 rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">
                         <img src={item[2].imagem} className="w-[200px] h-[300px] object-contain" />
 
                         {/* Overlay escuro */}

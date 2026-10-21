@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: 'Colônia - Menu',
+    title: 'Delivery Guaratiba',
     description:
-        'Loja de materiais de construção em Guaratiba. Ferramentas, tintas, elétrica, hidráulica, ferragens e muito mais.',
+        'O delivey do seu bairro',
 };
 
 export default function RootLayout({
