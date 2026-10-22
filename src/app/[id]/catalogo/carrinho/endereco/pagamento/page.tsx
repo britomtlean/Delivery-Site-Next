@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 
 const Page = () => {
 
-    const { carrinho, connection } = useContext(Context)!;
+    const { carrinho, connection, produtosCarrinho } = useContext(Context)!;
 
     const [modoPagamento, setModoPagamento] = useState<string | null>(null);
 
@@ -32,6 +32,7 @@ const Page = () => {
 
         const whatsappMessage = () => {
             //GERA MENSAGEM
+            /*
             const pedido: Record<string, any> | null = {
                 produtos: [
                     {
@@ -54,7 +55,10 @@ const Page = () => {
                 .map((p: any) => `📌 ${p.quantidade} x ${p.nome} - R$ ${p.subtotal.toFixed(2).replace('.', ',')}`)
                 .join('\n');
 
-            const mensagem = `SEU PEDIDO: LELECO HAMBURGUERIA PIRAQUÊ
+            */
+
+            const mensagem =
+                /*`SEU PEDIDO: LELECO HAMBURGUERIA PIRAQUÊ
 
                         Acompanhe abaixo o pedido
 
@@ -85,9 +89,11 @@ const Page = () => {
                         💳 Crédito
 
                         Clique no link para acompanhar seu pedido:
-                        https://seusite.com/pedido/${numeroPedido}`;
+                        https://seusite.com/pedido/${numeroPedido}
+                       `;*/
+                       'Quero acompanhar meu pedido'
 
-            window.open(`https://wa.me/5521970076196?text=${encodeURIComponent(mensagem)}`, '_blank');
+                window.open(`https://wa.me/5521970076196?text=${encodeURIComponent(mensagem)}`, '_blank');
         };
 
 
@@ -114,8 +120,10 @@ const Page = () => {
     ) : (
         <div className="h-full w-full p-5 flex flex-col gap-10 ">
             {/* Cabeçalho */}
-            <div className="relative flex flex-col justify-center gap-5
-                            lg:flex-row">
+            <div
+                className="relative flex flex-col justify-center gap-5
+                            lg:flex-row"
+            >
                 <Link
                     href={'../endereco'}
                     className="
@@ -259,10 +267,14 @@ const Page = () => {
                             <div className="flex justify-between">
                                 <span>Produtos</span>
                                 <span>
-                                    {carrinho?.valorTotal.toLocaleString('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                    }) || (0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                                    {produtosCarrinho
+                                        .reduce((acc, produto) => {
+                                            return produto.subtotal + acc;
+                                        }, 0)
+                                        .toLocaleString('pt-BR', {
+                                            style: 'currency',
+                                            currency: 'BRL',
+                                        })}
                                 </span>
                             </div>
 
@@ -283,10 +295,14 @@ const Page = () => {
                             >
                                 <span>Total</span>
                                 <span>
-                                    {((carrinho?.valorTotal || 0) + 10).toLocaleString('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                    })}
+                                    {(produtosCarrinho
+                                        .reduce((acc, produto) => {
+                                            return produto.subtotal + acc;
+                                        }, 0)
+                                     + 10).toLocaleString('pt-BR', {
+                                            style: 'currency',
+                                            currency: 'BRL',
+                                        })}
                                 </span>
                             </div>
                         </div>
@@ -409,7 +425,7 @@ const Page = () => {
                 ) : (
                     <div className="w-full h-full p-4 border border-y-slate-400 ">
                         <div className="flex flex-col gap-3 overflow-y-auto flex-1 max-h-[250px]">
-                            {carrinho?.produtos?.map((produto) => (
+                            {produtosCarrinho?.map((produto) => (
                                 <div
                                     key={produto.produtoId}
                                     className="bg-slate-300 text-black rounded-lg p-3 border-b border-r border-slate-400

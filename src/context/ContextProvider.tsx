@@ -157,6 +157,12 @@ export const ContextProvider = ({children, dados, produtos}: {children: React.Re
                     return ar
                 })
                 setProdutosCarrinho(array)
+                /*
+                setCarrinho((prev) => {
+                    prev.produtos = array;
+                    return prev
+            })
+                    */
             }
             else
             {
