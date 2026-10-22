@@ -7,16 +7,52 @@ import { MdAccessTimeFilled } from 'react-icons/md';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import Carrinho from './Carrinho';
 import Carrosel from './Carrosel';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from '@/context/ContextProvider';
 import { usePathname } from 'next/navigation';
+import Loading from '@/components/Loading';
 
 const Page = () => {
 
     const pathname = usePathname();
-    const { dadosEstabelecimento, produtosEstabelecimento } = useContext(Context)!;
+    const { dadosEstabelecimento, produtosEstabelecimento, connection } = useContext(Context)!;
 
     const [busca, setBusca] = useState<string>('');
+    const [connectionsStatus, setConnectionsStatus] = useState<boolean | null>(null);
+
+    
+    useEffect(() => {
+        const conectar = async () => {
+
+            if (!connection) return;
+
+
+            if (connection?.state === 'Connected') return;
+
+            connection
+                ?.start()
+                .then(() => {
+                    console.log('Status: Conectado.');
+                    setConnectionsStatus(true)
+                })
+                .catch(() => {
+                    setConnectionsStatus(false);
+                    alert('Erro ao realizar conexção');
+                });
+        };
+
+        conectar();
+
+        return () => {
+            //...
+        };
+    }, [connection]);
+
+    if(!connectionsStatus) return (
+        <div className="w-full h-full bg-sky-200">
+            <Loading />
+        </div>
+    );
 
     return (
         <div

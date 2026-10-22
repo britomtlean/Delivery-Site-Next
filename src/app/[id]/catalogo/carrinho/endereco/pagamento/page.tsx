@@ -3,62 +3,16 @@
 import { ArrowBigLeft, CreditCard, QrCode, Banknote, ReceiptText } from 'lucide-react';
 import { Context } from '@/context/ContextProvider';
 import Link from 'next/link';
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { useContext, useEffect, useState } from 'react';
 
 
-type Produto = {
-    produtoId: string;
-    nome: string;
-    quantidade: number;
-    valorUnitario: number;
-    subtotal: number;
-};
-
-
 const Page = () => {
-    const { carrinho } = useContext(Context)!;
+
+    const { carrinho, connection } = useContext(Context)!;
 
     const [modoPagamento, setModoPagamento] = useState<string | null>(null);
 
     /////////////////////// SIGNALR \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        const [connection, setConnection] = useState<HubConnection | null>(null);
-
-        useEffect(() => {
-            //INSTANCIA DE CONEXÃO
-            const newConnection = new HubConnectionBuilder()
-                .withUrl('https://dotnet-webapi-base-production.up.railway.app/chat')
-                .withAutomaticReconnect()
-                .build();
-
-            setConnection(newConnection);
-        }, []);
-
-        useEffect(() => {
-
-            if (!connection) return;
-
-            connection
-                .start()
-                .then(() => {
-                    console.log('✅ Conectado ao SignalR');
-                    connection.invoke('EntrarSala', JSON.stringify({ sala: carrinho?.contatoCliente}));
-
-
-                    // ESCUTA MENSAGEM DO SERVIDOR
-                    connection.on('ReceiveMessage', (message: string) => {
-                        console.log('📩 Servidor - ', message);
-                        console.log(JSON.stringify(message));
-                    });
-                })
-                .catch((err) => {
-                    console.error('Erro na conexão:', err);
-                });
-
-            return () => {
-                connection.stop();
-            };
-        }, [connection]);
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -141,9 +95,10 @@ const Page = () => {
         if (!connection) return;
 
         try {
+            //connection.invoke('EntrarSala', JSON.stringify({ sala: carrinho?.contatoCliente }));
             await connection.invoke('CreatePedido', pedido);
-
             console.log('✅ Pedido enviado: ', pedido);
+            await connection.invoke('SairSala', 'CreatePedido');
             whatsappMessage();
         } catch (err) {
             console.error('Erro ao enviar:', err);

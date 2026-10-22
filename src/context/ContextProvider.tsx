@@ -3,8 +3,9 @@
 import { Produto, ProdutoDB } from '@/Types/Types';
 import { Produtos, Usuarios } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { createContext, useContext, useState } from 'react';
+import { createContext, SetStateAction, useContext, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
 type Carrinho = {
     nomeCliente: string | null;
@@ -17,8 +18,10 @@ type Carrinho = {
 };
 
 export type ContextType = {
+    connection: HubConnection | null;
+    setConnection: React.Dispatch<SetStateAction<HubConnection | null>>;
     dadosEstabelecimento: Usuarios;
-    produtosEstabelecimento: ProdutoDB[] | null
+    produtosEstabelecimento: ProdutoDB[] | null;
     produtosCarrinho: Array<Produto>;
     incluirProduto: (produto: Produtos) => void;
     incrementarProduto: (produto: Produto) => void;
@@ -37,6 +40,55 @@ export const ContextProvider = ({ children, dados, produtos }:
     const navigate = useRouter();
     const pathname = usePathname();
 
+    ///////////////////////// SIGNAL \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+    const [connection, setConnection] = useState<HubConnection | null>(null);
+
+
+    useEffect(() => {
+        if (connection) return;
+
+        console.log('Conexão declarada.');
+
+        const newConnection = new HubConnectionBuilder()
+            .withUrl('https://dotnet-webapi-base-production.up.railway.app/chat')
+            .withAutomaticReconnect([0, 2000, 5000, 10000, 30000])
+            .build();
+
+        newConnection.serverTimeoutInMilliseconds = 90000;
+        newConnection.keepAliveIntervalInMilliseconds = 30000;
+
+        newConnection.onclose(async (error) => {
+            console.error('🔴 DESCONNECTED:', error);
+
+            if (newConnection.state !== 'Disconnected') {
+                await newConnection.stop();
+            }
+        });
+
+        newConnection.onreconnecting((error) => {
+            console.warn('🟡 RECONNECTING:', error);
+
+        });
+
+        newConnection.onreconnected(async (connectionId) => {
+            console.log('🟢 RECONNECTED:', connectionId);
+        });
+
+        newConnection.on('Erro', async (mensagem: string) => {
+            console.error('❌ Servidor:', mensagem);
+        });
+
+        newConnection.on('Conectado', (msg: string) => {
+            console.log(msg);
+        });
+
+        setConnection(newConnection);
+    }, []);
+
+
+    /////////////////////////////////////////////////////////////////////
+
     //Dados Carrinho
     const [carrinho, setCarrinho] = useState<Carrinho | null>(null);
     const [produtosCarrinho, setProdutosCarrinho] = useState<Array<Produto>>([]);
@@ -44,6 +96,9 @@ export const ContextProvider = ({ children, dados, produtos }:
     //Dados DB
     const dadosEstabelecimento = dados;
     const produtosEstabelecimento = produtos;
+
+
+
 
     function adicionarCarrinho(nome: string, contato: string, endereco: string) {
         const carrinho: Carrinho = {
@@ -147,6 +202,8 @@ export const ContextProvider = ({ children, dados, produtos }:
     return (
         <Context.Provider
             value={{
+                connection,
+                setConnection,
                 dadosEstabelecimento,
                 produtosEstabelecimento,
                 produtosCarrinho,
