@@ -16,10 +16,15 @@ const Page = () => {
             flex flex-col gap-10"
       >
           <div className="flex justify-center flex-col lg:flex-row gap-8 lg:gap-1">
-              <Link className="text-black h-[60px] lg:absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2" href="../catalogo">
+              <Link
+                  className="text-black h-[60px] lg:absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2"
+                  href="../catalogo"
+              >
                   <ArrowBigLeft className="text-slate-600" /> <strong>Retornar</strong>
               </Link>
-              <h2 className="lg:text-3xl font-bold lg:mb-4 text-center text-gray-700">Reveja os detalhes do seu pedido</h2>
+              <h2 className="lg:text-3xl font-bold lg:mb-4 text-center text-gray-700">
+                  Reveja os detalhes do seu pedido
+              </h2>
           </div>
 
           <div
@@ -31,11 +36,11 @@ const Page = () => {
                   <></>
               ) : (
                   <div className="w-full lg:w-1/3 h-full p-4 border border-y-slate-400">
-                      <div className="flex flex-col gap-3 overflow-y-scroll lg:overflow-y-auto flex-1 max-h-96">
+                      <div className="flex flex-col gap-3 overflow-y-scroll lg:overflow-y-scroll flex-1 h-96">
                           {produtosCarrinho.map((produto) => (
                               <div
                                   key={produto.produtoId}
-                                  className="bg-slate-300 text-black rounded-lg p-3
+                                  className="bg-slate-300 text-black rounded-lg p-3 overflow-hidden py-10
                                 flex items-center gap-3"
                               >
                                   <img

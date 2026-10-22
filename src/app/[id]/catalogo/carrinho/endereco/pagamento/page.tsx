@@ -101,7 +101,7 @@ const Page = () => {
             await connection.invoke('SairSala', 'CreatePedido');
             whatsappMessage();
         } catch (err) {
-            console.error('Erro ao enviar:', err);
+            alert('Erro: '+err);
         }
     }
 

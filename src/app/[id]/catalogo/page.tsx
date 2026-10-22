@@ -15,12 +15,11 @@ import Loading from '@/components/Loading';
 const Page = () => {
 
     const pathname = usePathname();
-    const { dadosEstabelecimento, produtosEstabelecimento, connection } = useContext(Context)!;
+    const { dadosEstabelecimento, produtosEstabelecimento, connection, connectionsStatus } = useContext(Context)!;
 
     const [busca, setBusca] = useState<string>('');
-    const [connectionsStatus, setConnectionsStatus] = useState<boolean | null>(null);
 
-    
+    /*
     useEffect(() => {
         const conectar = async () => {
 
@@ -53,8 +52,11 @@ const Page = () => {
             <Loading />
         </div>
     );
+    */
 
-    return (
+    return !connectionsStatus ? (
+        <Loading />
+    ) : (
         <div
             className="w-full gap-10 lg:gap-2
             flex flex-col justify-start items-center"

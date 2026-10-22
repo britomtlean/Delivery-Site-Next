@@ -22,7 +22,7 @@ export default function Carrinho({ id }: { id: string }) {
                 <div className="mt-4 border-t border-white py-10 flex flex-col justify-center items-center gap-4">
                     <ShoppingCart className="size-12" />
                     <div>
-                        <h1 className="w-full">Itens: {produtosCarrinho.length}</h1>
+                        <h1 className="w-full">Carrinho vazio</h1>
                     </div>
                     <Link
                         className="
@@ -62,7 +62,15 @@ export default function Carrinho({ id }: { id: string }) {
             <div className="lg:border-t border-blue-500 flex flex-col justify-center items-center gap-4 h-full">
                 <ShoppingCart className="size-12 hidden lg:block" />
                 <div>
-                    <h1 className="w-full font-bold">Itens no carrinho: {produtosCarrinho.length}</h1>
+                    <h1 className="w-full font-bold">
+                        Total:{' '}
+                        {produtosCarrinho.reduce((acc, produto) => {
+                            return produto.subtotal + acc;
+                        }, 0).toLocaleString('pt-BR', {
+                                                    style: 'currency',
+                                                    currency: 'BRL',
+                                                })}
+                    </h1>
                 </div>
                 <Link
                     className="

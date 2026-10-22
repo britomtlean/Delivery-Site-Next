@@ -31,7 +31,7 @@ export default function Landing({ user }: { user: Usuarios | null }) {
                     alt="Logo"
                     width={200}
                     height={200}
-                    className="rounded-lg transition-all ease-out"
+                    className="rounded-lg transition-all ease-out animate-pulse"
                 />
             </motion.div>
 
@@ -47,7 +47,7 @@ export default function Landing({ user }: { user: Usuarios | null }) {
                 transition={{ duration: 0.6 }}
                 className="relative w-full max-w-sm p-6 rounded-2xl
                    bg-white/10 backdrop-blur-xl
-                   border border-white/10 shadow-2xl animate-pulse"
+                   border border-white/10 shadow-2xl"
             >
                 {/* HEADER */}
                 <div className="text-center">

@@ -20,13 +20,17 @@ type Carrinho = {
 export type ContextType = {
     connection: HubConnection | null;
     setConnection: React.Dispatch<SetStateAction<HubConnection | null>>;
+    connectionsStatus: boolean;
+    setConnectionsStatus: React.Dispatch<SetStateAction<boolean>>;
+
     dadosEstabelecimento: Usuarios;
     produtosEstabelecimento: ProdutoDB[] | null;
+    carrinho: Carrinho;
     produtosCarrinho: Array<Produto>;
+
     incluirProduto: (produto: Produtos) => void;
     incrementarProduto: (produto: Produto) => void;
     decrementarProduto: (id: Produto) => void;
-    carrinho: Carrinho | null;
     adicionarCarrinho: (nome: string, contato: string, endereco: string) => void;
 };
 
@@ -34,16 +38,34 @@ export const Context: React.Context<ContextType | null> = createContext<ContextT
 
 /************************************************************************************** */
 
-export const ContextProvider = ({ children, dados, produtos }:
-    { children: React.ReactNode, dados: Usuarios, produtos: ProdutoDB[] | null }) => {
+export const ContextProvider = ({children, dados, produtos}: {children: React.ReactNode; dados: Usuarios; produtos: ProdutoDB[] | null;}) => {
 
     const navigate = useRouter();
     const pathname = usePathname();
 
+    //Dados DB
+    const dadosEstabelecimento = dados;
+    const produtosEstabelecimento = produtos;
+
+    //Dados Carrinho
+    const [produtosCarrinho, setProdutosCarrinho] = useState<Array<Produto>>([]);
+
+    const [carrinho, setCarrinho] = useState<Carrinho>({
+            nomeCliente: '',
+            contatoCliente: '',
+            enderecoCliente: '',
+            produtos: produtosCarrinho,
+            loja: dados.user,
+            valorTotal: produtosCarrinho.reduce((acc, produto) => {
+                return produto.subtotal + acc;
+            }, 0),
+        });
+
+
     ///////////////////////// SIGNAL \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     const [connection, setConnection] = useState<HubConnection | null>(null);
-
+    const [connectionsStatus, setConnectionsStatus] = useState<boolean>(false);
 
     useEffect(() => {
         if (connection) return;
@@ -68,7 +90,6 @@ export const ContextProvider = ({ children, dados, produtos }:
 
         newConnection.onreconnecting((error) => {
             console.warn('🟡 RECONNECTING:', error);
-
         });
 
         newConnection.onreconnected(async (connectionId) => {
@@ -83,36 +104,26 @@ export const ContextProvider = ({ children, dados, produtos }:
             console.log(msg);
         });
 
+        newConnection
+            .start()
+            .then(() => setConnectionsStatus(true))
+            .catch(() => setConnectionsStatus(false));
+
         setConnection(newConnection);
     }, []);
 
-
     /////////////////////////////////////////////////////////////////////
 
-    //Dados Carrinho
-    const [carrinho, setCarrinho] = useState<Carrinho | null>(null);
-    const [produtosCarrinho, setProdutosCarrinho] = useState<Array<Produto>>([]);
-
-    //Dados DB
-    const dadosEstabelecimento = dados;
-    const produtosEstabelecimento = produtos;
-
-
-
-
     function adicionarCarrinho(nome: string, contato: string, endereco: string) {
-        const carrinho: Carrinho = {
-            nomeCliente: nome,
-            contatoCliente: contato,
-            enderecoCliente: endereco,
-            produtos: produtosCarrinho,
-            loja: dados.user,
-            valorTotal: produtosCarrinho.reduce((acc, produto) => {
-                return produto.subtotal + acc;
-            }, 0),
-        };
 
-        setCarrinho(carrinho);
+
+        setCarrinho((prev: Carrinho) => {
+            prev.nomeCliente = nome;
+            prev.contatoCliente = contato,
+            prev.enderecoCliente = endereco
+
+            return prev
+        });
 
         navigate.push(`${pathname}/pagamento`);
     }
@@ -132,11 +143,27 @@ export const ContextProvider = ({ children, dados, produtos }:
 
         try {
             const produtoExiste = produtosCarrinho.some((array) => array.produtoId == produto.id);
-            if (produtoExiste) throw new Error('Produto já incluso no carrinho');
 
+            if (produtoExiste)
+            {
+                const array = produtosCarrinho.map((ar) => {
+                    if(ar.produtoId == produto.id)
+                    {
+                        ar.quantidade = ar.quantidade + 1
+                        ar.subtotal = (ar.quantidade + 1) * Number(ar.valorUnitario);
+                        return ar
+                    }
+
+                    return ar
+                })
+                setProdutosCarrinho(array)
+            }
+            else
+            {
             setProdutosCarrinho((prev: Produto[]) => {
                 return [...prev, produtoConvertido];
             });
+            }
         } catch (error: unknown) {
             if (error instanceof Error) {
                 alert(error.message);
@@ -204,6 +231,8 @@ export const ContextProvider = ({ children, dados, produtos }:
             value={{
                 connection,
                 setConnection,
+                connectionsStatus,
+                setConnectionsStatus,
                 dadosEstabelecimento,
                 produtosEstabelecimento,
                 produtosCarrinho,
@@ -217,7 +246,7 @@ export const ContextProvider = ({ children, dados, produtos }:
             {children}
         </Context.Provider>
     );
-};
+};;;
 
 /*************************************************************************************** */
 

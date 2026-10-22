@@ -10,6 +10,7 @@ import { Usuarios } from '@prisma/client';
 import { ProdutoDB } from '@/Types/Types';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useContext } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -50,7 +51,7 @@ export default async function RootLayout({ children, params }: { children: React
         <html lang="pt-br" className={cn('font-sans')}>
             <body className={inter.className}>
                 <header
-                    className="w-full h-[25vh] lg:h-[10vh] relative
+                    className="w-full h-[200px] lg:h-[10vh] relative
                         flex flex-col lg:flex-row justify-around lg:justify-center items-center lg:items-center"
                     style={{ background: login?.Background || '#1e293b' }}
                 >
@@ -60,7 +61,7 @@ export default async function RootLayout({ children, params }: { children: React
                             'https://res.cloudinary.com/dolfatptk/image/upload/v1788721062/images_saqhkw.jpg'
                         }
                         alt="Logo"
-                        className="bg-white rounded-[100%] lg:hidden absolute border top-5 w-[30vw] h-[30vw] max-w-[120px] max-h-[120px] z-100"
+                        className="bg-white rounded-[100%] lg:hidden absolute border top-6 w-[100px] h-[100px] z-100"
                     />
 
                     <div
@@ -85,7 +86,7 @@ export default async function RootLayout({ children, params }: { children: React
                     <nav
                         className="w-3/4 h-1/2 hidden
                                 text-white font-bold text-sm
-                                lg:flex justify-around items-center gap-8 xl:w-1/2"
+                                lg:flex justify-center items-center gap-20 xl:w-1/2"
                     >
                         <Link href={'/' + login.user + '/catalogo'}>
                             <HomeIcon className="size-8" />
@@ -96,16 +97,15 @@ export default async function RootLayout({ children, params }: { children: React
                         <Link href={'/'}>Promoções</Link>
 
                         <Link href={'/' + login.user + '/sobre'}>Sobre</Link>
-
                     </nav>
                 </header>
 
                 <ContextProvider dados={login} produtos={produtos}>
-                    <div className="lg:min-h-[100vh] bg-slate-100">{children}</div>
+                    <div>{children}</div>
                 </ContextProvider>
 
                 <footer className="text-white" style={{ background: login?.Background || '#1e293b' }}>
-                    <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3">
+                    <div className="max-w-7xl mx-auto px-6 py-12 flex justify-center">
                         {/* Empresa */}
                         <section>
                             <h2 className="text-lg text-center font-bold mb-4">{login.Nome}</h2>
@@ -113,64 +113,12 @@ export default async function RootLayout({ children, params }: { children: React
                             <p className="text-slate-300 text-sm text-center leading-7">{login.Descricao}</p>
                         </section>
 
-                        {/* Contato */}
-                        <section className="mx-auto">
-                            <h2 className="text-lg font-semibold mb-4">Contato</h2>
 
-                            <ul className="space-y-3 text-slate-300 text-sm">
-                                <li>{login.Endereco}</li>
-
-                                <li>💬 WhatsApp</li>
-                                <li>{login.WhatsApp}</li>
-
-                                <li>
-                                    🕒 Segunda a Sexta
-                                    <br />
-                                    08:00 às 17:00
-                                </li>
-
-                                <li>
-                                    🕒 Sábado
-                                    <br />
-                                    08:30 às 12:30
-                                </li>
-                            </ul>
-                        </section>
-
-                        {/* Navegação */}
-                        <section className="mx-auto">
-                            <h2 className="text-lg font-semibold mb-4">Navegação</h2>
-
-                            <nav className="flex flex-col gap-3 text-slate-300 text-sm">
-                                <a href="/home" className="hover:text-white transition">
-                                    Início
-                                </a>
-
-                                <a href="/catalogo" className="hover:text-white transition">
-                                    Catálogo
-                                </a>
-
-                                <a href="#" className="hover:text-white transition">
-                                    Promoções
-                                </a>
-
-                                <a href="#" className="hover:text-white transition">
-                                    Minha Conta
-                                </a>
-
-                                <a href="/politica-de-privacidade" className="hover:text-white transition">
-                                    Política de Privacidade
-                                </a>
-                            </nav>
-                        </section>
                     </div>
 
                     <div className="border-t border-white">
                         <div className="max-w-7xl text-center mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-300">
-                            <p>
-                                © {new Date().getFullYear()} Brits Inc. Todos os direitos
-                                reservados.
-                            </p>
+                            <p>© {new Date().getFullYear()} Brits Inc. Todos os direitos reservados.</p>
 
                             <p>Desenvolvido por Leandro Matos</p>
                         </div>

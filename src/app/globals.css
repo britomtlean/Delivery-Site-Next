@@ -14,8 +14,11 @@
 }
   */
 
+  *{
+    overflow-x: hidden;
+  }
+
 body {
-@apply bg-[#020617];
-overflow-x: hidden;
+@apply bg-slate-100 w-screen min-h-screen;
 }
 
