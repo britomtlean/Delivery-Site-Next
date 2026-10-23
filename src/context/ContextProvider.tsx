@@ -11,7 +11,7 @@ type Carrinho = {
     nomeCliente: string | null;
     contatoCliente: string | null;
     enderecoCliente: string | null;
-    produtos: Produto[] | null;
+    produtos: Produto[];
     loja: string | null;
     valorTotal: number;
 
@@ -26,7 +26,6 @@ export type ContextType = {
     dadosEstabelecimento: Usuarios;
     produtosEstabelecimento: ProdutoDB[] | null;
     carrinho: Carrinho;
-    produtosCarrinho: Array<Produto>;
 
     incluirProduto: (produto: Produtos) => void;
     incrementarProduto: (produto: Produto) => void;
@@ -47,20 +46,14 @@ export const ContextProvider = ({children, dados, produtos}: {children: React.Re
     const dadosEstabelecimento = dados;
     const produtosEstabelecimento = produtos;
 
-    //Dados Carrinho
-    const [produtosCarrinho, setProdutosCarrinho] = useState<Array<Produto>>([]);
-
     const [carrinho, setCarrinho] = useState<Carrinho>({
             nomeCliente: '',
             contatoCliente: '',
             enderecoCliente: '',
-            produtos: produtosCarrinho,
+            produtos: [],
             loja: dados.user,
-            valorTotal: produtosCarrinho.reduce((acc, produto) => {
-                return produto.subtotal + acc;
-            }, 0),
+            valorTotal: 0,
         });
-
 
     ///////////////////////// SIGNAL \\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -128,109 +121,118 @@ export const ContextProvider = ({children, dados, produtos}: {children: React.Re
         navigate.push(`${pathname}/pagamento`);
     }
 
-    function incluirProduto(produto: Produtos) {
-        const quantidade = 1;
-        const valorUnitario = produto.valor;
+function incluirProduto(produto: Produtos) {
 
-        const produtoConvertido: Produto = {
-            produtoId: produto.id,
-            nome: produto.nome,
-            imagem: produto.imagem,
-            quantidade: quantidade,
-            valorUnitario: Number(valorUnitario),
-            subtotal: quantidade * Number(valorUnitario),
+    const valorUnitario = Number(produto.valor);
+
+    setCarrinho((prev) => {
+        const produtoExiste = prev.produtos.some((item: Produto) => item.produtoId === produto.id);
+
+        let novosProdutos: Produto[];
+
+        if (produtoExiste) {
+            novosProdutos = prev.produtos.map((item: Produto) => {
+                if (item.produtoId === produto.id) {
+                    const quantidade = item.quantidade + 1;
+
+                    return {
+                        ...item,
+                        quantidade,
+                        subtotal: quantidade * item.valorUnitario,
+                    };
+                }
+
+                return item;
+            });
+        } else {
+            const produtoConvertido: Produto = {
+                produtoId: produto.id,
+                nome: produto.nome,
+                imagem: produto.imagem,
+                quantidade: 1,
+                valorUnitario,
+                subtotal: valorUnitario,
+            };
+
+            novosProdutos = [...prev.produtos, produtoConvertido];
+        }
+
+        return {
+            ...prev,
+            produtos: novosProdutos,
+            valorTotal: novosProdutos.reduce((total, item) => total + item.subtotal, 0),
         };
+    });
+}
 
-        try {
-            const produtoExiste = produtosCarrinho.some((array) => array.produtoId == produto.id);
+function incrementarProduto(produto: Produto) {
+    setCarrinho((prev: Carrinho) => {
+        const produtoExiste = prev.produtos.some((item) => item.produtoId === produto.produtoId);
 
-            if (produtoExiste)
-            {
-                const array = produtosCarrinho.map((ar) => {
-                    if(ar.produtoId == produto.id)
-                    {
-                        ar.quantidade = ar.quantidade + 1
-                        ar.subtotal = (ar.quantidade + 1) * Number(ar.valorUnitario);
-                        return ar
+        let novosProdutos: Produto[];
+
+        if (!produtoExiste) {
+            novosProdutos = [
+                ...prev.produtos,
+                {
+                    ...produto,
+                    quantidade: 1,
+                    subtotal: produto.valorUnitario,
+                },
+            ];
+        } else {
+            novosProdutos = prev.produtos.map((item) => {
+                if (item.produtoId === produto.produtoId) {
+                    const quantidade = item.quantidade + 1;
+
+                    return {
+                        ...item,
+                        quantidade,
+                        subtotal: quantidade * item.valorUnitario,
+                    };
+                }
+
+                return item;
+            });
+        }
+
+        return {
+            ...prev,
+            produtos: novosProdutos,
+            valorTotal: novosProdutos.reduce((total, item) => total + item.subtotal, 0),
+        };
+    });
+}
+
+function decrementarProduto(produto: Produto) {
+    setCarrinho((prev: Carrinho) => {
+        const novosProdutos = prev.produtos
+            .map((item) => {
+                if (item.produtoId === produto.produtoId) {
+                    const quantidade = item.quantidade - 1;
+
+                    if (quantidade <= 0) {
+                        return null;
                     }
 
-                    return ar
-                })
-                setProdutosCarrinho(array)
-                /*
-                setCarrinho((prev) => {
-                    prev.produtos = array;
-                    return prev
+                    return {
+                        ...item,
+                        quantidade,
+                        subtotal: quantidade * item.valorUnitario,
+                    };
+                }
+
+                return item;
             })
-                    */
-            }
-            else
-            {
-            setProdutosCarrinho((prev: Produto[]) => {
-                return [...prev, produtoConvertido];
-            });
-            }
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                alert(error.message);
-            } else {
-                alert(error);
-            }
-        }
-    }
+            .filter((item): item is Produto => item !== null);
 
-    function incrementarProduto(produto: Produto) {
-        const quantidade = 1;
-        const valorUnitario = produto.valorUnitario;
-
-        const produtoConvertido: Produto = {
-            produtoId: produto.produtoId,
-            nome: produto.nome,
-            quantidade: quantidade,
-            valorUnitario: valorUnitario,
-            subtotal: quantidade * valorUnitario,
+        return {
+            ...prev,
+            produtos: novosProdutos,
+            valorTotal: novosProdutos.reduce((total, item) => total + item.subtotal, 0),
         };
-
-        setProdutosCarrinho((prev: Produto[]) => {
-            const produtoExiste = prev.some((array) => array.produtoId == produto.produtoId);
-
-            if (!produtoExiste) return [...prev, produtoConvertido];
-
-            return prev.map((array) => {
-                if (array.produtoId == produto.produtoId) {
-                    return {
-                        ...array,
-                        quantidade: array.quantidade + 1,
-                        subtotal: (array.quantidade + 1) * array.valorUnitario,
-                    };
-                }
-
-                return array;
-            });
-        });
-    }
-
-    function decrementarProduto(produto: Produto) {
-        setProdutosCarrinho((prev) => {
-            const produtoExiste = prev.some((array) => array.produtoId == produto.produtoId && array.quantidade === 1);
-            if (produtoExiste) {
-                const novaLista = prev.filter((array) => array.produtoId !== produto.produtoId);
-                return novaLista;
-            }
-
-            return prev.map((array) => {
-                if (array.produtoId == produto.produtoId) {
-                    return {
-                        ...array,
-                        quantidade: array.quantidade - 1,
-                        subtotal: array.valorUnitario * (array.quantidade - 1),
-                    };
-                }
-
-                return array;
-            });
-        });
-    }
+    });
+}
 
     return (
         <Context.Provider
@@ -241,7 +243,6 @@ export const ContextProvider = ({children, dados, produtos}: {children: React.Re
                 setConnectionsStatus,
                 dadosEstabelecimento,
                 produtosEstabelecimento,
-                produtosCarrinho,
                 incluirProduto,
                 incrementarProduto,
                 decrementarProduto,

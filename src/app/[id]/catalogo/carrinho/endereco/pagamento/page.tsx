@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 
 const Page = () => {
 
-    const { carrinho, connection, produtosCarrinho } = useContext(Context)!;
+    const { carrinho, connection, dadosEstabelecimento } = useContext(Context)!;
 
     const [modoPagamento, setModoPagamento] = useState<string | null>(null);
 
@@ -30,82 +30,17 @@ const Page = () => {
         window.location.href = data.url;
     }
 
-        const whatsappMessage = () => {
-            //GERA MENSAGEM
-            /*
-            const pedido: Record<string, any> | null = {
-                produtos: [
-                    {
-                        produtoId: '6a10d5b7ae6f124854579c0e',
-                        nome: 'Top Jet',
-                        quantidade: 1,
-                        valorUnitario: 10,
-                        subtotal: 10,
-                    },
-                ],
-                valorTotal: carrinho?.valorTotal,
-                nomeCliente: carrinho?.nomeCliente,
-                contatoCliente: carrinho?.contatoCliente,
-                enderecoCliente: carrinho?.enderecoCliente,
-            };
-
-            const numeroPedido = Date.now().toString().slice(-8);
-
-            const resumoProdutos = pedido.produtos
-                .map((p: any) => `📌 ${p.quantidade} x ${p.nome} - R$ ${p.subtotal.toFixed(2).replace('.', ',')}`)
-                .join('\n');
-
-            */
-
-            const mensagem =
-                /*`SEU PEDIDO: LELECO HAMBURGUERIA PIRAQUÊ
-
-                        Acompanhe abaixo o pedido
-
-                        Pedido nº: #${numeroPedido}
-                        Realizado em: ${new Date().toLocaleString('pt-BR')}
-
-                        -----------------------------
-                        🍽️ RESUMO DO PEDIDO
-
-                        ${resumoProdutos}
-
-                        -----------------------------
-                        💳 PAGAMENTO
-
-                        ▪️ Taxa de Entrega: R$ 5,00
-                        ▪️ Valor Total do Pedido: R$ ${pedido.valorTotal.toFixed(2).replace('.', ',')}
-
-                        -----------------------------
-                        🏠 ENDEREÇO DE ENTREGA
-
-                        ${pedido.enderecoCliente}
-
-                        ⏲️ Previsão de Entrega: 45 a 80 minutos
-
-                        -----------------------------
-                        🤩 ${pedido.nomeCliente}
-                        📞 ${pedido.contatoCliente}
-                        💳 Crédito
-
-                        Clique no link para acompanhar seu pedido:
-                        https://seusite.com/pedido/${numeroPedido}
-                       `;*/
-                       'Quero acompanhar meu pedido'
-
-                window.open(`https://wa.me/5521970076196?text=${encodeURIComponent(mensagem)}`, '_blank');
-        };
-
 
     async function pagamentoEntrega(pedido: any) {
+
         if (!connection) return;
 
         try {
-            //connection.invoke('EntrarSala', JSON.stringify({ sala: carrinho?.contatoCliente }));
+            await connection.invoke('EntrarSala', JSON.stringify({ sala: carrinho?.contatoCliente }))
+            connection.on('ReceiveMessage', (data) =>
+                {console.log(data)});
             await connection.invoke('CreatePedido', pedido);
             console.log('✅ Pedido enviado: ', pedido);
-            await connection.invoke('SairSala', 'CreatePedido');
-            whatsappMessage();
         } catch (err) {
             alert('Erro: '+err);
         }
@@ -118,10 +53,10 @@ const Page = () => {
             Carrinho vazio <br></br> <br></br> <strong className="p-4 text-6xl">{'=('}</strong>{' '}
         </h1>
     ) : (
-        <div className="h-full w-full p-5 flex flex-col gap-10 ">
+        <div className="h-full w-full p-5 flex flex-col lg:gap-10">
             {/* Cabeçalho */}
             <div
-                className="relative flex flex-col justify-center gap-5
+                className="relative flex flex-col justify-center gap-5 py-5
                             lg:flex-row"
             >
                 <Link
@@ -140,7 +75,7 @@ const Page = () => {
                     <strong>Retornar</strong>
                 </Link>
 
-                <h2 className="lg:text-3xl font-bold text-gray-7700">Forma de Pagamento</h2>
+                <h2 className="lg:text-3xl font-bold text-center text-gray-700">Forma de Pagamento</h2>
             </div>
 
             {/* Conteúdo */}
@@ -267,7 +202,7 @@ const Page = () => {
                             <div className="flex justify-between">
                                 <span>Produtos</span>
                                 <span>
-                                    {produtosCarrinho
+                                    {carrinho.produtos
                                         .reduce((acc, produto) => {
                                             return produto.subtotal + acc;
                                         }, 0)
@@ -295,14 +230,14 @@ const Page = () => {
                             >
                                 <span>Total</span>
                                 <span>
-                                    {(produtosCarrinho
-                                        .reduce((acc, produto) => {
+                                    {(
+                                        carrinho.produtos.reduce((acc, produto) => {
                                             return produto.subtotal + acc;
-                                        }, 0)
-                                     + 10).toLocaleString('pt-BR', {
-                                            style: 'currency',
-                                            currency: 'BRL',
-                                        })}
+                                        }, 0) + 10
+                                    ).toLocaleString('pt-BR', {
+                                        style: 'currency',
+                                        currency: 'BRL',
+                                    })}
                                 </span>
                             </div>
                         </div>
@@ -425,7 +360,7 @@ const Page = () => {
                 ) : (
                     <div className="w-full h-full p-4 border border-y-slate-400 ">
                         <div className="flex flex-col gap-3 overflow-y-auto flex-1 max-h-[250px]">
-                            {produtosCarrinho?.map((produto) => (
+                            {carrinho.produtos?.map((produto) => (
                                 <div
                                     key={produto.produtoId}
                                     className="bg-slate-300 text-black rounded-lg p-3 border-b border-r border-slate-400

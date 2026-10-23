@@ -7,7 +7,7 @@ import { useContext, useState } from 'react';
 
 const Page = () => {
 
-    const { adicionarCarrinho, produtosCarrinho, carrinho } = useContext(Context)!;
+    const { adicionarCarrinho, carrinho } = useContext(Context)!;
 
     const [nome, setNome] = useState('');
     const [contato, setContato] = useState('');
@@ -36,7 +36,7 @@ const Page = () => {
     };
 
 
-    return produtosCarrinho.length == 0 ? (
+    return carrinho.produtos.length == 0 ? (
         <h1 className="font-bold w-full text-4xl text-center py-10 min-h-screen">
             Carrinho vazio <br></br> <br></br> <strong className="p-4 text-6xl">{'=('}</strong>{' '}
         </h1>
@@ -68,13 +68,13 @@ const Page = () => {
 
             {/* Conteúdo */}
             <div
-                className="flex flex-col items-center lg:items-start gap-5 flex-1
+                className="flex flex-col items-center lg:items-start lg:justify-center gap-5 flex-1
             lg:flex-row"
             >
                 {/* Formulário */}
                 <section
                     className="
-                        lg:w-2/3
+                        lg:w-1/2
                         w-full
                         bg-slate-300
                         border
@@ -83,9 +83,9 @@ const Page = () => {
                         p-4 lg:p-8
                     "
                 >
-                    <form className="flex flex-col gap-5">
+                    <form className="flex flex-col gap-5 ">
                         {/* CEP */}
-                        <div className="flex flex-col lg:grid grid-cols-4 gap-4">
+                        <div className="flex flex-col gap-4">
                             <div>
                                 <label className="font-semibold text-black">Nome</label>
                                 <input
@@ -93,6 +93,7 @@ const Page = () => {
                                     placeholder="Digite o seu nome"
                                     className="w-full mt-2 p-3 rounded-lg border border-slate-400"
                                     required
+                                    maxLength={30}
                                     value={nome}
                                     onChange={(e) => {
                                         setNome(e.target.value);

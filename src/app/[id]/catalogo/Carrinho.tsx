@@ -7,10 +7,10 @@ import { usePathname } from 'next/navigation';
 import { useContext } from 'react';
 
 export default function Carrinho({ id }: { id: string }) {
-    const { produtosCarrinho, carrinho } = useContext(Context)!;
+    const { carrinho } = useContext(Context)!;
     const pathname = usePathname();
 
-    return produtosCarrinho.length === 0 ? (
+    return carrinho.produtos?.length === 0 ? (
         <aside
             className="hidden lg:h-[310px] w-[95%] py-5 lg:p-4 bottom-[1%] overflow-y-scroll lg:overflow-hidden
             bg-[#1e293b] border border-slate-300 text-white rounded-lg
@@ -64,12 +64,12 @@ export default function Carrinho({ id }: { id: string }) {
                 <div>
                     <h1 className="w-full font-bold">
                         Total:{' '}
-                        {produtosCarrinho.reduce((acc, produto) => {
+                        {carrinho.produtos?.reduce((acc, produto) => {
                             return produto.subtotal + acc;
                         }, 0).toLocaleString('pt-BR', {
                                                     style: 'currency',
                                                     currency: 'BRL',
-                                                })}
+                                                }) || 0}
                     </h1>
                 </div>
                 <Link

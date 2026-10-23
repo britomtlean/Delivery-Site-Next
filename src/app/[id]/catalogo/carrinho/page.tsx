@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 const Page = () => {
 
-  const { produtosCarrinho, incrementarProduto, decrementarProduto } = useContext(Context)!;
+  const { carrinho, incrementarProduto, decrementarProduto } = useContext(Context)!;
   const pathname = usePathname();
 
   return (
@@ -32,12 +32,12 @@ const Page = () => {
             flex flex-col justify-center items-center lg:items-start gap-2 border-black
             lg:flex-row"
           >
-              {produtosCarrinho.length === 0 ? (
+              {carrinho.produtos.length === 0 ? (
                   <></>
               ) : (
                   <div className="w-full lg:w-1/3 h-full p-4 border border-y-slate-400">
                       <div className="flex flex-col gap-3 overflow-y-scroll lg:overflow-y-scroll flex-1 h-96">
-                          {produtosCarrinho.map((produto) => (
+                          {carrinho.produtos.map((produto) => (
                               <div
                                   key={produto.produtoId}
                                   className="bg-slate-300 text-black rounded-lg p-3 overflow-hidden py-10
