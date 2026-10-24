@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import Image from 'next/image';
 import Produtos from './Produtos';
@@ -13,7 +13,6 @@ import { usePathname } from 'next/navigation';
 import Loading from '@/components/Loading';
 
 const Page = () => {
-
     const pathname = usePathname();
     const { dadosEstabelecimento, produtosEstabelecimento, connection, connectionsStatus } = useContext(Context)!;
 

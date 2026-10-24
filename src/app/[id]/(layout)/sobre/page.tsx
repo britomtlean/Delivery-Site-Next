@@ -18,7 +18,7 @@ const Page = () => {
                     "url('https://monitormercantil.com.br/wp-content/uploads/2023/01/Corcovado-foto-Riotur.jpg')",
             }}
         >
-            <div className="absolute inset-0 bg-black/50" />
+            <div className="absolute inset-0 bg-gradient-radial from-gray-600 to-black/80" />
             <div
                 className="hidden lg:flex lg:flex-row justify-center lg:justify-center items-center gap-10
                         bg-slate-300 rounded-lg p-4 px-8 border border-slate-200 relative z-10"
@@ -60,8 +60,8 @@ const Page = () => {
                     </div>
                 </div>
             </div>
-            <h1 className="font-extrabold text-3xl relative z-10">Localização</h1>
-            <div className="w-1/2 lg:h-[400px] overflow-hidden rounded-2xl relative z-10">
+            <h1 className="font-extrabold text-3xl relative z-10 text-white">Localização</h1>
+            <div className="w-[95vw] lg:w-1/2 h-[300px] lg:h-[400px] overflow-hidden rounded-2xl relative z-10">
                 <iframe
                     src={mapUrl}
                     className="w-full h-full border-0"

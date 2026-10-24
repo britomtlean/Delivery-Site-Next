@@ -33,7 +33,7 @@ export default async function Home() {
                         <h1 className="text-center">{array.Nome}</h1>
                         <Link
                             className="py-2 w-3/4 bg-indigo-900 rounded-lg text-center font-bold"
-                            href={`/${array?.user}/`}
+                            href={`/${array?.user}/midias`}
                         >
                             Acessar
                         </Link>

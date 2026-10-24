@@ -49,7 +49,7 @@ const Page = () => {
                     if (data == 'Aguardando confirmação...') {
                         connection?.off('ReceiveMessage');
                         await connection.invoke('SairSala', JSON.stringify({ sala: carrinho?.contatoCliente }));
-                        window.location.href = `/${dadosEstabelecimento.user}/catalogo/aguarde`;
+                        window.location.href = `/${dadosEstabelecimento.user}/aguarde`;
                     }
                 });
             await connection.invoke('CreatePedido', pedido);
@@ -66,29 +66,18 @@ const Page = () => {
             Carrinho vazio <br></br> <br></br> <strong className="p-4 text-6xl">{'=('}</strong>{' '}
         </h1>
     ) : (
-        <div className="h-full w-full p-5 flex flex-col lg:gap-10">
+        <div className="h-full w-full p-5 flex flex-col gap-5 lg:gap-10">
             {/* Cabeçalho */}
-            <div
-                className="relative flex flex-col justify-center gap-5 py-5
-                            lg:flex-row"
-            >
+            <div className="flex justify-center flex-col lg:flex-row gap-8 lg:gap-1">
                 <Link
                     href={'../endereco'}
-                    className="
-                        lg:absolute left-20
-                        flex items-center gap-2
-                        bg-slate-300
-                        px-5 py-3
-                        rounded-lg
-                        text-black
-                        hover:bg-slate-400
-                    "
+                    className="text-black h-[60px] lg:absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2"
                 >
                     <ArrowBigLeft />
                     <strong>Retornar</strong>
                 </Link>
 
-                <h2 className="lg:text-3xl font-bold text-center text-gray-700">Forma de Pagamento</h2>
+                <h2 className="lg:text-3xl font-bold text-center text-gray-700 ">Forma de Pagamento</h2>
             </div>
 
             {/* Conteúdo */}
@@ -361,9 +350,9 @@ const Page = () => {
             </div>
 
             <div
-                className="h-full lg:w-1/2
-            w-full  bg-slate-300 rounded-lg border border-slate-400 p-8
-            flex flex-col items-start gap-4"
+                className="h-full mx-auto
+                w-full lg:w-3/4 bg-slate-300 rounded-lg border border-slate-400 p-8
+                flex flex-col items-start gap-4"
             >
                 <h2 className="text-3xl font-bold text-black">Produtos</h2>
                 {carrinho?.produtos == null ? (
@@ -371,12 +360,12 @@ const Page = () => {
                         <h1 className="w-full">Carrinho vazio</h1>
                     </div>
                 ) : (
-                    <div className="w-full h-full p-4 border border-y-slate-400 ">
-                        <div className="flex flex-col gap-3 overflow-y-auto flex-1 max-h-[250px]">
+                    <div className="w-full p-4 border border-y-slate-400 h-[250px] bg-gray-200">
+                        <div className="flex flex-col gap-3 overflow-y-scroll flex-1">
                             {carrinho.produtos?.map((produto) => (
                                 <div
                                     key={produto.produtoId}
-                                    className="bg-slate-300 text-black rounded-lg p-3 border-b border-r border-slate-400
+                                    className="bg-slate-300 py-5 text-black rounded-lg p-3 border-b border-r border-slate-400 overflow-hidden
                                 flex items-center gap-3"
                                 >
                                     <img

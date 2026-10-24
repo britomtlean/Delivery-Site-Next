@@ -42,22 +42,14 @@ const Page = () => {
         </h1>
     ) : (
         <div
-            className="h-full w-full p-5 flex flex-col gap-5 lg:gap-10
+            className="lg:h-screen h-full w-full p-5 flex flex-col gap-5 lg:gap-10
         lg:w-4/5 lg:mx-auto"
         >
             {/* Cabeçalho */}
-            <div className="flex flex-col justify-center relative gap-5 lg:gap-2 py-3">
+            <div className="flex justify-center flex-col lg:flex-row gap-8 lg:gap-1">
                 <Link
                     href={`../carrinho`}
-                    className="
-                        lg:absolute left-20
-                        flex items-center gap-2
-                        bg-slate-300
-                        px-5 py-3
-                        rounded-lg
-                        text-black
-                        hover:bg-slate-400
-                    "
+                    className="text-black h-[60px] lg:absolute left-20 bg-slate-300 p-4 rounded-lg flex gap-2"
                 >
                     <ArrowBigLeft />
                     <strong>Retornar</strong>
@@ -68,13 +60,13 @@ const Page = () => {
 
             {/* Conteúdo */}
             <div
-                className="flex flex-col items-center lg:items-start lg:justify-center gap-5 flex-1
+                className="flex flex-col items-center lg:items-start lg:justify-center gap-5
             lg:flex-row"
             >
                 {/* Formulário */}
                 <section
                     className="
-                        lg:w-1/2
+                        lg:w-1/3
                         w-full
                         bg-slate-300
                         border
@@ -158,36 +150,6 @@ const Page = () => {
                                     }}
                                 />
                             </div>
-                            <div className="col-span-1">
-                                <label className="font-semibold text-black">CEP</label>
-
-                                <input
-                                    type="text"
-                                    inputMode="numeric"
-                                    placeholder="00000-000"
-                                    className="w-full mt-2 p-3 rounded-lg border border-slate-400"
-                                    required
-                                    onChange={(e) => {}}
-                                />
-                            </div>
-
-                            <div className="col-span-3 flex items-end">
-                                <button
-                                    disabled
-                                    type="button"
-                                    className="
-                                        h-12
-                                        px-6
-                                        rounded-lg
-                                        bg-blue-600
-                                        text-white
-                                        hover:bg-blue-700
-                                    "
-                                    onBlur={buscarCep}
-                                >
-                                    Buscar CEP
-                                </button>
-                            </div>
                         </div>
                     </form>
                 </section>
@@ -223,12 +185,16 @@ const Page = () => {
             <div className="flex justify-center">
                 <button
                     onClick={() => {
-                        if (!nome || !contato || !endereco) return;
+                        if (!nome?.trim() || !contato?.trim() || !endereco?.trim()) {
+                            //alert('Preencha todos os campos corretamente!');
+                            return;
+                        }
                         adicionarCarrinho(nome, contato, endereco);
                     }}
                     className="
                     flex justify-center
                         lg:w-3/5
+                        lg:max-w-[500px]
                         w-full
                         py-5
                         rounded-lg

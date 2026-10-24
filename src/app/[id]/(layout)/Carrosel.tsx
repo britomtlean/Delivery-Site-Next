@@ -5,11 +5,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ProdutoDB } from '@/Types/Types';
+import { usePathname } from 'next/navigation';
 
 const Carrosel = ({ produtos }: { produtos: ProdutoDB[] | null }) => {
 
     const oneRef = useRef<HTMLInputElement>(null);
     const [item, setItem] = useState<ProdutoDB[] | null>(produtos);
+    const pathname = usePathname();
 
     const nextProduct = () => {
 
@@ -100,11 +102,12 @@ const Carrosel = ({ produtos }: { produtos: ProdutoDB[] | null }) => {
 
                     <div className="w-[40%] scale-90 rounded-3xl border-2 bg-gradient-radial from-gray-200 to-indigo-500/30 flex justify-center items-center relative">
                         <img src={item[1].imagem} className="w-[200px] h-[300px] object-contain" />
-                        <button
+                        <a
                             className="z-50 w-1/2 min-w-[250px] px-20 py-3 bg-[#1e293b] rounded-lg absolute bottom-[8%] left-[50%] translate-x-[-50%]"
+                            href={`${pathname}/search?produto=${item[1].nome}`}
                         >
-                            <h1 className="text-white font-bold">Detalhes</h1>
-                        </button>
+                            <h1 className="text-white font-bold text-center">Detalhes</h1>
+                        </a>
                     </div>
 
                     <div className="w-[30%] scale-50 rounded-3xl border-2 bg-gray-200 flex justify-center items-center opacity-80 relative">

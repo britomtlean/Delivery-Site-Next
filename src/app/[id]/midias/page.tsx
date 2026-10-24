@@ -1,4 +1,4 @@
-import prisma from '../_db/prisma';
+import prisma from '../../_db/prisma';
 import Landing from './Landing';
 
 export default async function Home({ params }: { params: Promise<{ id: string }> }) {

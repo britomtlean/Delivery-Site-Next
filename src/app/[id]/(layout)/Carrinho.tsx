@@ -53,23 +53,25 @@ export default function Carrinho({ id }: { id: string }) {
         </aside>
     ) : (
         <div
-            className="h-[120px] w-[95%] py-5 bottom-[1%] overflow-hidden z-50
+            className="h-fit w-[95%] py-2 bottom-[1%] overflow-hidden z-50
             bg-blue-800 border border-slate-300/30 text-white rounded-lg
-            flex flex-col fixed
-            lg:h-[320px] lg:py-5 2xl:max-h-[350px] lg:w-[25%] 2xl:w-1/5 lg:relative"
+            flex flex-col fixed max-w-[500px] lg:max-w-[250px]
+            lg:h-[280px] lg:py-5 2xl:max-h-[350px] lg:w-[25%] 2xl:w-1/5 lg:relative"
         >
             <h2 className="hidden lg:inline text-xl font-bold mb-2 text-center">Carrinho</h2>
-            <div className="lg:border-t border-blue-500 flex flex-col justify-center items-center gap-4 h-full p-50">
+            <div className="lg:border-t border-blue-500 flex flex-col justify-center items-center gap-4 py-2">
                 <ShoppingCart className="size-12 hidden lg:block" />
                 <div>
-                    <h1 className="w-full font-bold">
+                    <h1 className="w-full h-fit font-bold">
                         Total:{' '}
-                        {carrinho.produtos?.reduce((acc, produto) => {
-                            return produto.subtotal + acc;
-                        }, 0).toLocaleString('pt-BR', {
-                                                    style: 'currency',
-                                                    currency: 'BRL',
-                                                }) || 0}
+                        {carrinho.produtos
+                            ?.reduce((acc, produto) => {
+                                return produto.subtotal + acc;
+                            }, 0)
+                            .toLocaleString('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                            }) || 0}
                     </h1>
                 </div>
                 <Link

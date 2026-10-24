@@ -13,7 +13,7 @@ export default function Landing({ user }: { user: Usuarios | null }) {
 
     return (
         <main
-            className={`relative px-5 pt-[15%] md:p-0 min-h-screen flex flex-col gap-8 items-center justify-start md:justify-center overflow-hidden text-white`}
+            className={`relative px-5 md:p-0 min-h-screen flex flex-col gap-8 items-center justify-center lg:justify-center overflow-hidden text-white`}
             style={{
                 background: user?.Background || '#0d171f',
             }}
@@ -59,7 +59,7 @@ export default function Landing({ user }: { user: Usuarios | null }) {
 
                 {/* BUTTONS */}
                 <div className="mt-6 flex flex-col gap-3">
-                    <LinkButton href={`/${user?.user}/catalogo`}>
+                    <LinkButton href={`/${user?.user}/`}>
                         <div className="flex justify-center items-center gap-4">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -116,10 +116,9 @@ function LinkButton({ children, href }: { children: React.ReactNode; href: strin
 return (
     <Link href={href}>
         <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
+
             className="
-                    p-3 rounded-xl text-center
+                    p-3 rounded-xl text-center overflow-hidden
                     bg-white/10 hover:bg-white/20
                     border border-white/10
                     backdrop-blur-md

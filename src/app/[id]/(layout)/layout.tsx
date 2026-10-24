@@ -3,14 +3,12 @@ import ContextProvider from '@/context/ContextProvider';
 import { Inter } from 'next/font/google';
 import '../../globals.css';
 import { cn } from '@/lib/utils';
-import { Button } from '@base-ui/react';
-import { HomeIcon, Menu } from 'lucide-react';
+import { HomeIcon } from 'lucide-react';
 import prisma from '@/app/_db/prisma';
 import { Usuarios } from '@prisma/client';
 import { ProdutoDB } from '@/Types/Types';
 import Link from 'next/link';
-import Image from 'next/image';
-import { useContext } from 'react';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -88,13 +86,13 @@ export default async function RootLayout({ children, params }: { children: React
                                 text-white font-bold text-sm
                                 lg:flex justify-center items-center gap-20 xl:w-1/2"
                     >
-                        <Link href={'/' + login.user + '/catalogo'}>
-                            <HomeIcon className="size-8" />
+                        <Link href={'/' + login.user + '/'}>
+                            <HomeIcon className="size-6" />
                         </Link>
 
-                        <Link href={`/${login.user}/catalogo/search`}>Catálogo</Link>
+                        <Link href={`/${login.user}/search`}>Catálogo</Link>
 
-                        <Link href={'/'}>Promoções</Link>
+                        <Link href={`/${login.user}`}>Promoções</Link>
 
                         <Link href={'/' + login.user + '/sobre'}>Sobre</Link>
                     </nav>
@@ -112,8 +110,6 @@ export default async function RootLayout({ children, params }: { children: React
 
                             <p className="text-slate-300 text-sm text-center leading-7">{login.Descricao}</p>
                         </section>
-
-
                     </div>
 
                     <div className="border-t border-white">

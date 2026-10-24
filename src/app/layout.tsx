@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import ContextProvider from "@/context/ContextProvider";
-//import { Inter, Geist } from "next/font/google";
 import { Inter } from 'next/font/google';
 import "./globals.css";
 import { cn } from "@/lib/utils";

@@ -6,7 +6,8 @@ import React, { useContext } from 'react'
 const Page = () => {
 
   const { carrinho, dadosEstabelecimento } = useContext(Context)!;
-  const message = `SEU PEDIDO: LELECO HAMBURGUERIA PIRAQUÊ
+  const message = `
+                        ${dadosEstabelecimento.Nome}
 
                         Acompanhe abaixo o pedido
 
@@ -16,11 +17,19 @@ const Page = () => {
                         -----------------------------
                         🍽️ RESUMO DO PEDIDO
 
+                        ${carrinho.produtos.forEach(element => {
+                            '-----------------------------';
+                            element.nome;
+                            element.quantidade
+                            element.subtotal
+                            '-----------------------------';
+                        })}
+
                         -----------------------------
                         💳 PAGAMENTO
 
                         ▪️ Taxa de Entrega: R$ 10,00
-                        ▪️ Valor Total do Pedido: R$ ${carrinho.valorTotal.toFixed(2).replace('.', ',')}
+                        ▪️ Valor Total do Pedido: R$ ${(carrinho.valorTotal + 10).toFixed(2).replace('.', ',')}
 
                         -----------------------------
                         🏠 ENDEREÇO DE ENTREGA
@@ -45,6 +54,7 @@ const Page = () => {
                 className="p-5 bg-emerald-600 rounded-lg text-white font-bold"
                 onClick={() => {
                     window.open(`https://wa.me/5521970076196?text=${encodeURIComponent(message)}`, '_blank');
+                    carrinho.produtos = [];
                 }}
             >
                 Acompanhar pedido
