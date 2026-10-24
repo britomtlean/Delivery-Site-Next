@@ -3,7 +3,7 @@
 import { Context } from '@/context/ContextProvider';
 import React, { useContext } from 'react'
 
-const page = () => {
+const Page = () => {
 
 
 
@@ -14,4 +14,4 @@ const page = () => {
     );
 }
 
-export default page
+export default Page

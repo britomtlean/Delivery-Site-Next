@@ -3,7 +3,7 @@
 import { Context } from '@/context/ContextProvider';
 import React, { useContext } from 'react'
 
-const page = () => {
+const Page = () => {
 
   const { carrinho, dadosEstabelecimento } = useContext(Context)!;
   const message = `SEU PEDIDO: LELECO HAMBURGUERIA PIRAQUÊ
@@ -53,4 +53,4 @@ const page = () => {
     );
 }
 
-export default page
+export default Page
