@@ -39,15 +39,15 @@ const Page = () => {
                        `;
     return (
         <div className="h-screen w-full flex flex-col justify-start pt-20 items-center gap-5">
-            <h1 className="text-2xl font-black">Seu pedido está sendo confirmado...</h1>
+            <h1 className="text-2xl font-black text-center">Seu pedido está sendo confirmado...</h1>
             <h1>Acompanhe seu perdido pelo whatsapp</h1>
             <button
-                className="p-5 bg-emerald-600 rounded-lg text-black"
+                className="p-5 bg-emerald-600 rounded-lg text-white font-bold"
                 onClick={() => {
                     window.open(`https://wa.me/5521970076196?text=${encodeURIComponent(message)}`, '_blank');
                 }}
             >
-                Acompanhar pedido aqui
+                Acompanhar pedido
             </button>
         </div>
     );

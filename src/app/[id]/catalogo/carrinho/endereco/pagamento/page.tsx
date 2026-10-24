@@ -37,8 +37,21 @@ const Page = () => {
 
         try {
             await connection.invoke('EntrarSala', JSON.stringify({ sala: carrinho?.contatoCliente }))
-            connection.on('ReceiveMessage', (data) =>
-                {console.log(data)});
+            connection.on('ReceiveMessage', async (data) =>
+                {console.log(data);
+                    if(data == 'Loja offline')
+                    {
+                        connection?.off('ReceiveMessage');
+                        await connection.invoke('SairSala', JSON.stringify({ sala: carrinho?.contatoCliente }));
+                        alert('Loja offline');
+                        window.location.href = `/${dadosEstabelecimento.user}/catalogo`
+                    }
+                    if (data == 'Aguardando confirmação...') {
+                        connection?.off('ReceiveMessage');
+                        await connection.invoke('SairSala', JSON.stringify({ sala: carrinho?.contatoCliente }));
+                        window.location.href = `/${dadosEstabelecimento.user}/catalogo/aguarde`;
+                    }
+                });
             await connection.invoke('CreatePedido', pedido);
             console.log('✅ Pedido enviado: ', pedido);
         } catch (err) {

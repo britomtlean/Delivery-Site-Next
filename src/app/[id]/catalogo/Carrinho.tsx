@@ -54,12 +54,12 @@ export default function Carrinho({ id }: { id: string }) {
     ) : (
         <div
             className="h-[120px] w-[95%] py-5 bottom-[1%] overflow-hidden z-50
-            bg-blue-800 border border-slate-300 text-white rounded-lg
+            bg-blue-800 border border-slate-300/30 text-white rounded-lg
             flex flex-col fixed
             lg:h-[320px] lg:py-5 2xl:max-h-[350px] lg:w-[25%] 2xl:w-1/5 lg:relative"
         >
             <h2 className="hidden lg:inline text-xl font-bold mb-2 text-center">Carrinho</h2>
-            <div className="lg:border-t border-blue-500 flex flex-col justify-center items-center gap-4 h-full">
+            <div className="lg:border-t border-blue-500 flex flex-col justify-center items-center gap-4 h-full p-50">
                 <ShoppingCart className="size-12 hidden lg:block" />
                 <div>
                     <h1 className="w-full font-bold">
@@ -75,6 +75,7 @@ export default function Carrinho({ id }: { id: string }) {
                 <Link
                     className="
                                 inline-flex items-center justify-center gap-2
+                                overflow-hidden
                                 w-3/4
                                 px-5 py-3
                                 rounded-lg
